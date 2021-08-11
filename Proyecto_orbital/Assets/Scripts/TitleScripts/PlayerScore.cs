@@ -42,12 +42,12 @@ public class PlayerScore : MonoBehaviour
     {
         _Timer = Time.fixedTime;
         PlayerDistanceScore();
-        PlayerWallShowScore();
         PlayerNoTouchScreen();
         PlayerScoreCoinConverter();
         //Debug.Log("current score " + current_score);
         if(playerWallScore != 0)
         {
+            PlayerWallShowScore();
             current_score += playerWallScore;
             //Debug.LogError("score to add " + playerWallScore + " total " + current_score);
         }
@@ -73,12 +73,9 @@ public class PlayerScore : MonoBehaviour
     }
 
     public void PlayerWallShowScore()
-    {
-        if(playerWallScore != 0)
-        {
-            showPointsText.text = "Has pasar cerca de un muro: " + playerWallScore + " puntos.";
-            StartCoroutine(ShowTextOnTime());
-        }
+    { 
+        showPointsText.text = "Has pasar cerca de un muro: " + playerWallScore + " puntos.";
+        StartCoroutine(ShowTextOnTime());
         
     }
     void PlayerNoTouchScreen()
