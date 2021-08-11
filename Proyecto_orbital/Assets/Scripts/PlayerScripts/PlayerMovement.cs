@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float reachDistance = 1.0f;
     public float rotationSpeed = 5.0f;
     public string wayPointsName;
-    public static float playerScore;
+    public int playerScore;
 
     public GameObject Player;
 
@@ -26,7 +26,6 @@ public class PlayerMovement : MonoBehaviour
         last_position = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
         float distance = Vector3.Distance(wayPointsToFollow.wayPoints[currentWayPoint].position, transform.position);
@@ -40,12 +39,4 @@ public class PlayerMovement : MonoBehaviour
         playerScore = ((int)distance);
         Debug.Log(playerScore);
     }
-
-    //void detectPlayerPosition()
-    //{
-    //    float logX = Player.transform.position.x;
-    //    float logY = Player.transform.position.y;
-    //    float logZ = Player.transform.position.z;
-    //    Debug.Log("X:" + logX + "Y:" + logY + "Z:" + logZ);
-    //}
 }
