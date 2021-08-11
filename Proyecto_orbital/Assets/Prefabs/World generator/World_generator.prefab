@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3480404089360932192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8851277263116076935}
+  - component: {fileID: 2709294862688664149}
+  - component: {fileID: -6182045301656211421}
+  m_Layer: 0
+  m_Name: World_generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8851277263116076935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3480404089360932192}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 30, y: 30, z: 1.45}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2709294862688664149
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3480404089360932192}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6182045301656211421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3480404089360932192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a81d6e95289f849bc0e5c860eea0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Next_spawn: {fileID: 0}
+  spawn_offset: {x: 0, y: 0, z: 0}
+  zones1:
+  - {fileID: 7253365041876661247, guid: 17809a19bc1d0ba4ea44ba5ae6b5b141, type: 3}
+  - {fileID: 158367572730910057, guid: ebf3c54f357f19b48a9972cad1574925, type: 3}
+  - {fileID: 2453085071847974269, guid: 53bcd2d24d18ac447a40dbab68138d80, type: 3}
+  - {fileID: 7562684001144930009, guid: 3fffd654567f47047a8cd53b01d92747, type: 3}
+  - {fileID: 8672256604207189897, guid: 4cf3e34e5a80a5843849fbab377ecbf7, type: 3}
+  - {fileID: 7979499837485900972, guid: a485e77957c26e84b86baadaecc4aa4c, type: 3}
+  - {fileID: 2784038921962669727, guid: 74327ad0ca98d6e4c8e41ce38b9df26d, type: 3}
+  zones2: []
+  zones3: []
+  zones4: []
+  world_setings: {fileID: 8900680611803152936, guid: 12f3d512a75579a49a30bccc54ada05f, type: 3}
+  code: 
