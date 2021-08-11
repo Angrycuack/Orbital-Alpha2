@@ -8,25 +8,32 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
-    [SerializeField] private TMP_Text scoreText;
+    //[SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text coinText;
+    [SerializeField] private TMP_Text totalCoinsText;
     
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject showCoin;
 
-    [SerializeField] ScoreController scoreController;
+    PlayerScore scoreController;
     public int totalCoins;
     private float score;
     public int orbitNumber;
-    private int playerScoreToPrint;
+    //private int playerScoreToPrint;
+
+    // cuando esta en estado GameOver bool 
+    public bool isGameActive;
 
     private void Awake()
     {
         totalCoins = 0;
         score = 0f;
         instance = this;
-        scoreController = new ScoreController();
+        isGameActive = true;
+
+        scoreController = GameObject.FindObjectOfType<PlayerScore>();
+        
         
     }
     private void Update()
@@ -34,8 +41,10 @@ public class GameController : MonoBehaviour
         score += Time.deltaTime;
 
         //scoreText.text = "Score: " + score.ToString("F0");
-        playerScoreToPrint = ScoreController.ScoreToPrint();
-        scoreText.text = playerScoreToPrint.ToString();
+        //playerScoreToPrint = ScoreController.ScoreToPrint();
+        //scoreText.text = playerScoreToPrint.ToString();
+        //scoreText.text = .ToString();
+
     }
     /// <summary>
     /// Método que devuelve al jugador a la pantalla de Menú.
@@ -65,9 +74,24 @@ public class GameController : MonoBehaviour
             fadeOut.FadeOutEffect();
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
+            DisplayPlayerTotalCoins();
             Debug.Log("Game Over");
-        }       
+
+
+        }
     }
+    /// <summary>
+    /// Mostrar en pantalla la moneda obtenida por el jugador.
+    /// </summary>
+    private void DisplayPlayerTotalCoins()
+    {
+        isGameActive = false;
+        scoreController.PlayerScoreCoinConverter();
+        totalCoins += scoreController.score_to_coins;
+        totalCoinsText.text = "Coins: " + totalCoins.ToString();
+        showCoin.SetActive(false);
+    }
+
     /// <summary>
     /// Método que se encarga de ajustar los orbitales en función del valor dado.
     /// </summary>

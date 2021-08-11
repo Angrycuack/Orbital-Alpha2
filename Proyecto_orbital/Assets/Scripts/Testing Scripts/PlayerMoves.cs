@@ -21,7 +21,7 @@ public class PlayerMoves : MonoBehaviour
     public float speed = 0;
 
     // Score del jugador get from distance
-    public static float playerScore;
+    public int playerScore;
     Vector3 target;
     // ultima posicion de la esfera
     private Vector3 player_lastPosition;
@@ -53,7 +53,9 @@ public class PlayerMoves : MonoBehaviour
         //Debug.Log("Where is the target " + target);
         transform.position = Vector3.MoveTowards(player_lastPosition, Vector3.Lerp(player_lastPosition, target, t), speed);
 
-        ScoreController.PointsTraveledDistance(distance);
+        // recoge a valor para PlayerScore
+        playerScore = ((int)distance);
+
 
         //for (int i = 0; i <= 10; i++)
         //{
