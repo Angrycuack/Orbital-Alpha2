@@ -4697,6 +4697,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7789372712246104986, guid: 461b6ec46a77fec4f8eadc7a3547c3ee, type: 3}
+      propertyPath: set_addScoreWall
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7789372712246104986, guid: 461b6ec46a77fec4f8eadc7a3547c3ee, type: 3}
       propertyPath: showPointsNtText
       value: 
       objectReference: {fileID: 432210942}

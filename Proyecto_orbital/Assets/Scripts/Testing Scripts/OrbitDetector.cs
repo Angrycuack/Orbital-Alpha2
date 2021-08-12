@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OrbitDetector : MonoBehaviour
 {
-    private int pointsToAdd = 10;
     PlayerScore playerScore;
 
 
@@ -16,7 +15,7 @@ public class OrbitDetector : MonoBehaviour
     {
         if (other.gameObject.tag == "Orbital")
         {   
-            playerScore.PlayerWallScore(pointsToAdd);   
+            playerScore.PlayerWallScore();   
         }
         
     }

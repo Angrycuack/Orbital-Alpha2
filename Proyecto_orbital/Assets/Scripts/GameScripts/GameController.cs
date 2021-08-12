@@ -36,7 +36,8 @@ public class GameController : MonoBehaviour
         isGameActive = true;
 
         scoreController = GameObject.FindObjectOfType<PlayerScore>();
-
+        showScoreWs = GameObject.Find("textScoreWs");
+        showScoreNt = GameObject.Find("textScoreNt");
     }
     private void Update()
     {
@@ -77,12 +78,21 @@ public class GameController : MonoBehaviour
             DisplayPlayerTotalCoins();
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
-            
+            DestroyShowScoreEnd();
             Debug.Log("Game Over");
 
 
         }
     }
+
+    private void DestroyShowScoreEnd()
+    {
+        showScoreWs.SetActive(false);
+        StopCoroutine(scoreController.ShowTextOnTimeWallScore());
+        showScoreNt.SetActive(false);
+        StopCoroutine(scoreController.ShowTextOnTimeNoTouch());
+    }
+
     /// <summary>
     /// Mostrar en pantalla la moneda obtenida por el jugador.
     /// </summary>

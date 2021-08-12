@@ -25,7 +25,8 @@ public class PlayerScore : MonoBehaviour
     private float pressed_time;
     [SerializeField]
     public float set_timeNotouch = 5f;
-    public int add_Score = 5;
+    [SerializeField] private int add_Score = 5;
+    [SerializeField] private int add_CloseWall_Score = 5;
 
     // Instanciar GameController
     GameController gameController;
@@ -106,9 +107,9 @@ public class PlayerScore : MonoBehaviour
         current_score = playerDistance.playerScore;
     }
 
-    public void PlayerWallScore(int getScore)
+    public void PlayerWallScore()
     {
-        playerWallScore = getScore;
+        playerWallScore = add_CloseWall_Score;
         showPointsWsText.text = "Has pasado cerca de un muro: " + playerWallScore + " puntos.";
         StartCoroutine(ShowTextOnTimeWallScore());
     }
@@ -131,12 +132,9 @@ public class PlayerScore : MonoBehaviour
             if (prev_Timer != pressed_time && playerDistance.playerScore > 0)
             {
                 float dif_time = pressed_time - prev_Timer;
-                //Debug.LogWarning("pressed time " + pressed_time + " current time " + prev_Timer + " diff " + dif_time);
                 if (dif_time >= set_timeNotouch)
                 {
                     current_score += add_Score;
-                    Debug.LogError("pressed" + add_Score + " current " + current_score);
-
                     showPointsWsText.text = "Has conseguido: " + add_Score + " puntos. Sin tocar la pantalla.";
                     StartCoroutine(ShowTextOnTimeNoTouch());
                 }
@@ -148,11 +146,8 @@ public class PlayerScore : MonoBehaviour
     public void PlayerScoreCoinConverter()
     {
         if (!gameController.isGameActive)
-        {
-            
+        {   
             score_to_coins = playerTotalScore / divide_number;
-            //Debug.LogWarning("Game is over " + score_to_coins);
-
         } 
         
     }
