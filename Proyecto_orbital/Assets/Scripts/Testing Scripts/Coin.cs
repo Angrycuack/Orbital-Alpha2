@@ -41,11 +41,4 @@ public class Coin : MonoBehaviour
         Debug.Log("El numero es " + valueCoins + " monedas");
         gc_addCoins.AddCoins(playerCoins);
     }
-
-    public static int ConvertPointsToCoins (int pScore)
-    {
-        int sc = pScore / 100;
-        return playerCoins += sc;
-    }
-
 }

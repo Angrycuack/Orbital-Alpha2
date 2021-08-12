@@ -114,8 +114,12 @@ public class PlayerScore : MonoBehaviour
     }
      void GetScoreToSum()
     {
-        current_score += playerWallScore;
-        Debug.LogWarning(current_score);
+        if(playerWallScore > 0)
+        {
+            current_score += playerWallScore;
+        }
+            
+        
     }
     void PlayerNoTouchScreen()
     {
@@ -130,9 +134,9 @@ public class PlayerScore : MonoBehaviour
                 //Debug.LogWarning("pressed time " + pressed_time + " current time " + prev_Timer + " diff " + dif_time);
                 if (dif_time >= set_timeNotouch)
                 {
-                    int p_score = current_score + add_Score;
-                    //Debug.LogError("pressed" + p_score + " current " + current_score);
-                    current_score += p_score;
+                    current_score += add_Score;
+                    Debug.LogError("pressed" + add_Score + " current " + current_score);
+
                     showPointsWsText.text = "Has conseguido: " + add_Score + " puntos. Sin tocar la pantalla.";
                     StartCoroutine(ShowTextOnTimeNoTouch());
                 }
