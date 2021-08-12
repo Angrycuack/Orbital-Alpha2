@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   active: 0
+  defaultactive: 0
   visible: {fileID: 2100000, guid: a7c2d533759890741bc6b721d977f029, type: 2}
   invisible: {fileID: 2100000, guid: 20d03ea58c6998b49a6af01f28696222, type: 2}
 --- !u!1 &5777001258808044828

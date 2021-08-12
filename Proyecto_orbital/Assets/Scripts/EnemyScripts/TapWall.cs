@@ -13,10 +13,12 @@ public class TapWall : MonoBehaviour
     public Material visible;
     public Material invisible;
 
+    private BoxCollider orBitDetectCollider;
+
     private void Start()
     {
         //Inicializamos la variables con el valor que queremos que tengan por defecto.
-        
+        orBitDetectCollider = GameObject.Find("OrbitDetector").GetComponent<BoxCollider>();
         wallCollider = GetComponent<BoxCollider>();
         worldsettings = FindObjectOfType<World_settings>();
         active = worldsettings.generalactive;
@@ -28,11 +30,13 @@ public class TapWall : MonoBehaviour
         {
             GetComponent<MeshRenderer>().material = visible;
             wallCollider.enabled = true;
+            orBitDetectCollider.enabled = true;
         }
         else
         {
             GetComponent<MeshRenderer>().material = invisible;
             wallCollider.enabled = false;
+            orBitDetectCollider.enabled = false;
         }
     }
 
@@ -52,11 +56,13 @@ public class TapWall : MonoBehaviour
             {
                 GetComponent<MeshRenderer>().material = visible;
                 wallCollider.enabled = true;
+                orBitDetectCollider.enabled = true;
             }
             else
             {
                 GetComponent<MeshRenderer>().material = invisible;
                 wallCollider.enabled = false;
+                orBitDetectCollider.enabled = false;
             }    
         }
     }
