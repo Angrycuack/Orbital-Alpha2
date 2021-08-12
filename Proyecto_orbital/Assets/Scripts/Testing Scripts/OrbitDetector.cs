@@ -16,7 +16,7 @@ public class OrbitDetector : MonoBehaviour
     {
         if (other.gameObject.tag == "Orbital")
         {   
-            playerScore.PlayerWallAddScore(pointsToAdd);   
+            playerScore.PlayerWallScore(pointsToAdd);   
         }
         
     }

@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject showCoin;
 
+    [SerializeField] private GameObject showScoreWs;
+    [SerializeField] private GameObject showScoreNt;
+
     PlayerScore scoreController;
     public int totalCoins;
     private float score;
@@ -33,8 +36,7 @@ public class GameController : MonoBehaviour
         isGameActive = true;
 
         scoreController = GameObject.FindObjectOfType<PlayerScore>();
-        
-        
+
     }
     private void Update()
     {
@@ -72,9 +74,10 @@ public class GameController : MonoBehaviour
         {
             CentralSphereMovement fadeOut = GameObject.FindGameObjectWithTag("Player").GetComponent<CentralSphereMovement>();
             fadeOut.FadeOutEffect();
+            DisplayPlayerTotalCoins();
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
-            DisplayPlayerTotalCoins();
+            
             Debug.Log("Game Over");
 
 
@@ -123,5 +126,4 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         showCoin.SetActive(false);
     }
-
 }
