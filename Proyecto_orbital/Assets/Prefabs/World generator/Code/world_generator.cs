@@ -23,8 +23,8 @@ public class world_generator : MonoBehaviour
     private void Start()
     {
         zone = zones1[Random.Range(0, zones1.Length)];
-        Debug.Log(zones1.Length);
-        Debug.Log(zone);
+        //Debug.Log(zones1.Length);
+        //Debug.Log(zone);
         if (alpha == false)
         {
             if (world_setings.dificulty <= 1)
