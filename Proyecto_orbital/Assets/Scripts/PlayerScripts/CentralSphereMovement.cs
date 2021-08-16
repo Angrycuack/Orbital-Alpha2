@@ -12,11 +12,13 @@ public class CentralSphereMovement : MonoBehaviour
     [SerializeField] private GameObject centralSphere;
     [SerializeField] private GameObject orbital;
     [SerializeField] private GameObject[] actualOrbitInScene;
+    [SerializeField] private GameObject halo;
 
     private void Start()
     {
         spawnPosition = new Vector3(centralSphere.transform.position.x, centralSphere.transform.position.y, centralSphere.transform.position.z - 3f);
         StartCoroutine(MultipleBall(1));
+        halo.SetActive(true);
     }
 
     private void Update()
@@ -114,5 +116,11 @@ public class CentralSphereMovement : MonoBehaviour
     public void FadeOutEffect()
     {
         centralSphere.GetComponent<MeshRenderer>().enabled = false;
+    }
+
+    public IEnumerator DisableHalo()
+    {
+        yield return new WaitForSeconds(5f);
+        halo.SetActive(false);
     }
 }

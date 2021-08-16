@@ -26,6 +26,7 @@ public class Start_game : MonoBehaviour
         Menu.SetActive(false);
         Juego.SetActive(true);
         player.speed = 0.06f;
+        GameObject.Find("Player").GetComponent<CentralSphereMovement>().StartCoroutine("DisableHalo");
     
     }
 
