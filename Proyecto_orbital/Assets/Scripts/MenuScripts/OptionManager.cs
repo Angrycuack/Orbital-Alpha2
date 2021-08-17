@@ -42,6 +42,7 @@ public class OptionManager : MonoBehaviour
                 //sFXAudioSource.volume = volumenSFXSlider.value;
                 break;
         }
+        SaveOptions();
     }
     public void ChangeToggleValue(int volume)
     {
@@ -64,6 +65,9 @@ public class OptionManager : MonoBehaviour
     }
     public void SaveOptions()
     {
+        GameManager.instance.Options.generalVolumen = (int)volumenSlider.value;
+        GameManager.instance.Options.musicVolumen = (int)volumenMusicSlider.value;
+        GameManager.instance.Options.sFXVolumen = (int)volumenSFXSlider.value;
         GameManager.instance.Save();
     }
 }

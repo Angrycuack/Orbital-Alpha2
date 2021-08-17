@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject showCoin;
+
+    [SerializeField] private Button pauseButton;
 
     [SerializeField] ScoreController scoreController;
     public int totalCoins;
@@ -61,6 +64,7 @@ public class GameController : MonoBehaviour
     {
         if (orbitNumber <= 0)
         {
+            pauseButton.interactable = false;
             CentralSphereMovement fadeOut = GameObject.FindGameObjectWithTag("Player").GetComponent<CentralSphereMovement>();
             fadeOut.FadeOutEffect();
             Time.timeScale = 0;
