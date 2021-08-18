@@ -65,7 +65,7 @@ public class FullRotationDetector : MonoBehaviour
             msgText_Object.SetActive(true);
             msg_Text.text = "Enhorabuena! Conseguiste 30 puntos";
             int setScore = 0;
-            int getScore = 100;
+            int getScore = 11;
 
             playerScorer.PlayerScoreIncrementer(setScore, getScore);
 

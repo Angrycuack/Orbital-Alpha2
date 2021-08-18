@@ -34,6 +34,7 @@ public class PlayerScorer : MonoBehaviour
         playerDistance = GameObject.FindGameObjectWithTag("Player");
         
         playerScore = 0;
+        save_score = 0;
     }
 
     void Update()
@@ -52,9 +53,11 @@ public class PlayerScorer : MonoBehaviour
 
     public void PlayerScorePrint() 
     {
+        current_score = save_score + update_score;
         playerScore = current_score;
         //Debug.LogWarning("playerScore " + playerScore + " current_score " + current_score + " update_score " + update_score);
         playerScore_Text.text = playerScore.ToString();
+        
     }
 
     public void PlayerScoreIncrementer(int increaseScore, int addedScore)
@@ -62,8 +65,8 @@ public class PlayerScorer : MonoBehaviour
         if(addedScore != null) {
             save_score += addedScore;
         }
-        Debug.Log(save_score);
-        current_score = save_score + increaseScore;
+        Debug.LogError(save_score);
+        update_score = increaseScore;
 
         //Debug.Log(current_score);
         PlayerScorePrint();
@@ -91,7 +94,7 @@ public class PlayerScorer : MonoBehaviour
         }
         int addScore = countDownTimer_TS;
         msgScore_Text.text = "You recieved " + addScore+ " points";
-        update_score += addScore;
+        update_score = addScore;
         PlayerScoreIncrementer(0, update_score);
         yield return new WaitForSeconds(1f);
         msgScore_Object.SetActive(false);

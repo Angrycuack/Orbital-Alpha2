@@ -1538,6 +1538,9 @@ MonoBehaviour:
   msgScore_Object: {fileID: 430882877}
   countDownTimer_TS: 10
   score: 0
+  current_score: 0
+  update_score: 0
+  save_score: 0
   addScore_TS: 10
 --- !u!1 &531266314
 GameObject:
@@ -2599,7 +2602,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Coins
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9fc90d59ce801af4e8578ae5769ce7aa, type: 2}
   m_sharedMaterial: {fileID: -1890988413676207498, guid: 9fc90d59ce801af4e8578ae5769ce7aa, type: 2}
@@ -2662,7 +2665,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 93.45099, y: 0, z: 333.20276, w: 375.34827}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2886,7 +2889,7 @@ GameObject:
   - component: {fileID: 1371388712}
   - component: {fileID: 1371388711}
   m_Layer: 5
-  m_Name: MSG_text_2
+  m_Name: Trigger_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2908,7 +2911,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -289}
+  m_AnchoredPosition: {x: 0, y: -583}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1371388711
@@ -3473,7 +3476,7 @@ PrefabInstance:
     - target: {fileID: 3110283277856390760, guid: 691f366b77aff7f46b5d8d349ec8f555, type: 3}
       propertyPath: msg_Text
       value: 
-      objectReference: {fileID: 430882879}
+      objectReference: {fileID: 1371388711}
     - target: {fileID: 3110283277856390760, guid: 691f366b77aff7f46b5d8d349ec8f555, type: 3}
       propertyPath: msgText_Object
       value: 
