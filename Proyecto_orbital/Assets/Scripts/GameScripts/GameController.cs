@@ -7,10 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     public static GameController instance;
-
-    [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text coinText;
-    
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private GameObject showCoin;
@@ -33,9 +30,6 @@ public class GameController : MonoBehaviour
     {
         score += Time.deltaTime;
 
-        //scoreText.text = "Score: " + score.ToString("F0");
-        playerScoreToPrint = ScoreController.ScoreToPrint();
-        scoreText.text = playerScoreToPrint.ToString();
     }
     /// <summary>
     /// Método que devuelve al jugador a la pantalla de Menú.

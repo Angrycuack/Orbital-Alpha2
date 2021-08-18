@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Waypoint: {fileID: 7860771557616011474, guid: 01bb1a8893695194a920ccf4723a3f1b, type: 3}
   speed: 0
+  distance: 0
   reachThisDistance: 0
 --- !u!1 &4047754053215954370
 GameObject:

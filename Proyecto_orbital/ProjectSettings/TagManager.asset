@@ -11,6 +11,7 @@ TagManager:
   - IronEnemy
   - Coin
   - Wall
+  - Trigger
   layers:
   - Default
   - TransparentFX

@@ -27,9 +27,14 @@ public class PlayerMoves : MonoBehaviour
     private Vector3 player_lastPosition;
     private Vector3 player_currentPosition;
 
+    float prevPlayerZ;
+    int score;
+    float get_score;
     // la distancia recurridad de su ultima posicion hasta la actual
-    private float distance;
+    public float distance;
     // la distancia cuando modifica aleatoriamente la direccion
+    
+    public PlayerScorer pScorer;
     [SerializeField]
     public int reachThisDistance;
 
@@ -37,35 +42,43 @@ public class PlayerMoves : MonoBehaviour
     void Start()
     {
         player_currentPosition = this.transform.position;
-        
-        
+        prevPlayerZ = this.transform.position.z;
+        score = 0;
+
+        pScorer = FindObjectOfType<PlayerScorer>();
+    }
+
+    void Update()
+    {
+        PlayerScoreDistance();
     }
 
     void FixedUpdate()
     {
-        //// probar poner en un array los direcciones
-        //// y llamarlo con loop
+        
+        
         player_lastPosition = transform.position;
-        //// Debug.Log(player_lastPosition);
+       
         distance = Vector3.Distance(player_currentPosition, transform.position);
-        //Debug.Log("The distance " + distance);
+
         Vector3 target = Waypoint.position;
-        //Debug.Log("Where is the target " + target);
+
         transform.position = Vector3.MoveTowards(player_lastPosition, Vector3.Lerp(player_lastPosition, target, t), speed);
+    }
 
-        ScoreController.PointsTraveledDistance(distance);
-
-        //for (int i = 0; i <= 10; i++)
-        //{
-        //    if (player_lastPosition == target)
-        //    {
-        //        target = new Vector3(10f, 0, 0);
-        //        transform.position = Vector3.MoveTowards(player_lastPosition, Vector3.Lerp(player_lastPosition, target, t), speed);
-        //    }
-        //}
+    void PlayerScoreDistance() 
+    {
+        if(prevPlayerZ < this.transform.position.z) 
+        {
+            get_score += this.transform.position.z - prevPlayerZ;
+            prevPlayerZ = this.transform.position.z;
+            score = ((int) get_score);
+        }
+        pScorer.PlayerScoreIncrementer(score, 0);
 
 
     }
+
 
     //private void SpawntargetPosition ()
     //{
@@ -88,15 +101,7 @@ public class PlayerMoves : MonoBehaviour
     //    Debug.Log(targetPositioned);
     //}
 
-    //private void PlayerMovements()
-    //{
-        
-    //    PlayerMoveToForward();
 
-    //    //PlayerMoveToLeft();
-
-    //    PlayerMoveToRight();
-    //}
     
     //private void PlayerMoveToForward()
     //{

@@ -1,23 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+
+
 public class Coin : MonoBehaviour
 {
     public static int playerCoins = 0;
     public int[] valueCoins = {1,5,15};
+    // probando rotacion de la moneda
+    //private float speedRotation = 1f;
 
-    [SerializeField] private TMP_Text coinText;
+    GameController gc_addCoins;
 
-
-    private float speedRotation = 1f;
-
-    void Update()
+    void Start()
     {
-
-            transform.Rotate(Vector3.back * speedRotation * Time.deltaTime);
-        
+        gc_addCoins = GameObject.FindObjectOfType<GameController>();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Orbital"))
@@ -29,24 +28,12 @@ public class Coin : MonoBehaviour
         }
 
     }
-
-    IEnumerator ShowTextCoin ()
-    {
-        coinText.text = Coin.playerCoins.ToString();
-        yield return  new WaitForSeconds(2f);
-    }
     public void PickedPlayerCoin()
     {
         int coinNum = Random.Range(0, 2);
         playerCoins = valueCoins[coinNum];
-        Debug.Log("El jugador ha conseguido " + playerCoins + " monedas");
-        Debug.Log("El numero es " + valueCoins + " monedas");
+        // Debug.Log("El jugador ha conseguido " + playerCoins + " monedas");
+        // Debug.Log("El numero es " + valueCoins + " monedas");
+        gc_addCoins.AddCoins(playerCoins);
     }
-
-    public static int ConvertPointsToCoins (int pScore)
-    {
-        int sc = pScore / 100;
-        return playerCoins =+ sc;
-    }
-
 }

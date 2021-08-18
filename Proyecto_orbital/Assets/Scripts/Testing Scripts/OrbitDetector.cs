@@ -4,16 +4,43 @@ using UnityEngine;
 
 public class OrbitDetector : MonoBehaviour
 {
-    private int pointsToAdd = 10;
+
+    PlayerScorer playerScorer;
+
+    public bool wallDetected;
+    int wallCount;
+    
+    float _Timer = 50f;
+
+    void Start()
+    {
+        playerScorer = GameObject.Find("ScoreController").GetComponent<PlayerScorer>();
+        wallCount = 0;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Orbital")
-        {
+        {   
+            wallDetected = true;
+            // Aparece un aviso 50 puntos
+            if(wallDetected) 
+            {
+                wallCount++;
+                print("50 puntos por pasar cerca de un muro");
+                wallDetected = false;
+            }
+            // Quería un timer
+                while(_Timer > 0) {
+                _Timer -= Time.deltaTime;
+                print("Pasa otro muro suma mas puntos");
 
-            var orbit = other.CompareTag("Orbital");
-            Debug.Log(orbit + " detected " + pointsToAdd);
-            ScoreController.PointsWhenOrbitClosetoWall(pointsToAdd);
+        }
+
+
+            playerScorer.PlayerWallScorer(100); 
+            wallCount = 0;
         }
         
     }
+
 }
