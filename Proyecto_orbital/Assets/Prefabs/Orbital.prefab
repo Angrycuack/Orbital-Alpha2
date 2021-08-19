@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -4186707789785675760}
   - component: {fileID: -6182930188022870325}
   - component: {fileID: -1344090080430268042}
+  - component: {fileID: 6852615515501671291}
   m_Layer: 0
   m_Name: Orbital
   m_TagString: Orbital
@@ -65,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 20d03ea58c6998b49a6af01f28696222, type: 2}
+  - {fileID: 2100000, guid: 99b98de86e4077646937ad058cd79746, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,6 +144,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6852615515501671291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2495530547294270877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &4830092718479460531
 GameObject:
   m_ObjectHideFlags: 0
