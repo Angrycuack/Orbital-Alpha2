@@ -16,8 +16,8 @@ public class CentralSphereMovement : MonoBehaviour
 
     private void Start()
     {
-        spawnPosition = new Vector3(centralSphere.transform.position.x, centralSphere.transform.position.y, centralSphere.transform.position.z - 3f);
-        StartCoroutine(MultipleBall(1));
+        //spawnPosition = new Vector3(centralSphere.transform.position.x, centralSphere.transform.position.y, centralSphere.transform.position.z - 3f);
+        PowerUp("SimpleBall");
         halo.SetActive(true);
     }
 
@@ -34,6 +34,9 @@ public class CentralSphereMovement : MonoBehaviour
         actualOrbitInScene = GameObject.FindGameObjectsWithTag("Orbital");
         switch (power)
         {
+            case "SimpleBall":
+                StartCoroutine(MultipleBall(1));
+                break;
             case "MultiplePU":
                 StartCoroutine(MultipleBall(2));
                 break;
@@ -60,12 +63,13 @@ public class CentralSphereMovement : MonoBehaviour
     /// Corrutina que genera dos orbitales nuevos en un espacio de tiempo variable de 1 a 3 segundos.
     /// </summary>
     /// <returns></returns>
-    IEnumerator MultipleBall(int number)
+    public IEnumerator MultipleBall(int number)
     {
         for(int i = 0; i< number; i++)
         {
+            spawnPosition = new Vector3(centralSphere.transform.position.x, centralSphere.transform.position.y, centralSphere.transform.position.z - 3f);
             Instantiate(orbital, spawnPosition, orbital.transform.rotation);
-            GameController.instance.AddOrbit(true); // En esta linea error NULL
+            GameController.instance.AddOrbit(true);
             yield return new WaitForSeconds(Random.Range(1f,3f));
         }
         
@@ -113,9 +117,9 @@ public class CentralSphereMovement : MonoBehaviour
         }
     }
 
-    public void FadeOutEffect()
+    public void FadeOutEffect(bool state)
     {
-        centralSphere.GetComponent<MeshRenderer>().enabled = false;
+        centralSphere.GetComponent<MeshRenderer>().enabled = state;
     }
 
     public IEnumerator DisableHalo()

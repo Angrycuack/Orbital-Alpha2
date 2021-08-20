@@ -23,14 +23,16 @@ public class GameController : MonoBehaviour
     private float score;
     public int orbitNumber;
     private int playerScoreToPrint;
+    public bool continueButton;
 
     private void Awake()
     {
         totalCoins = 0;
         score = 0f;
-        instance = this;
+        continueButton = true;
         scoreController = new ScoreController();
-        
+        instance = this;
+
     }
     private void Update()
     {
@@ -66,11 +68,29 @@ public class GameController : MonoBehaviour
         {
             pauseButton.interactable = false;
             CentralSphereMovement fadeOut = GameObject.FindGameObjectWithTag("Player").GetComponent<CentralSphereMovement>();
-            fadeOut.FadeOutEffect();
+            fadeOut.FadeOutEffect(false);
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
-            Debug.Log("Game Over");
         }       
+    }
+    /// <summary>
+    /// Este método se encarga, en caso de que no se haya continuado previamente, dar la posibilidad de hacerlo. Restaura el orbital central, la velocidad,
+    /// y espamea un nuevo orbital.
+    /// </summary>
+    public void ContinueGame()
+    {
+        if (continueButton)
+        {
+            gameOverPanel.SetActive(false);
+            pauseButton.interactable = true;
+            CentralSphereMovement fadeOut = GameObject.FindGameObjectWithTag("Player").GetComponent<CentralSphereMovement>();
+            fadeOut.FadeOutEffect(true);
+            Time.timeScale = 1;
+            CentralSphereMovement newBall = GameObject.FindGameObjectWithTag("Player").GetComponent<CentralSphereMovement>();
+            newBall.PowerUp("SimpleBall");
+            continueButton = false;
+
+        }
     }
     /// <summary>
     /// Método que se encarga de ajustar los orbitales en función del valor dado.
