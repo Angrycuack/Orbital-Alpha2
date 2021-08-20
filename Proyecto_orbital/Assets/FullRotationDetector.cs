@@ -16,6 +16,7 @@ public class FullRotationDetector : MonoBehaviour
     SphereCollider colliderIsTrigger;
 
     PlayerScorer playerScorer;
+    public int set_score = 10;
     void Start()
     {
         orbit = GameObject.Find("Orbital");
@@ -27,15 +28,15 @@ public class FullRotationDetector : MonoBehaviour
         playerScorer = FindObjectOfType<PlayerScorer>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        orbit = GameObject.FindWithTag("Orbital");
-        if (orbit != null) 
+        if (orbit == null) 
         {
-            orbitPosition = orbit.transform.position;
+            orbit = GameObject.FindWithTag("Orbital");
         }
-
+ 
+        
         // Debug.LogError("orbit position " + save_orbit_position);
         SetTriggerPosition();
 
@@ -46,14 +47,20 @@ public class FullRotationDetector : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
-                if(colliderIsTrigger.isTrigger) {
-                    colliderIsTrigger.isTrigger = false;
-                }
-                //Debug.Log("position " + orbitPosition);
-                trigger_Position.transform.position = orbitPosition;
-                //Debug.LogWarning("trigger position " + trigger_Position);
-                msg_Text.text = "Deja que la orbita de una vuelta entera";
-                StartCoroutine(TriggerTimer());
+
+            
+            if (orbit != null) 
+            {
+                orbitPosition = orbit.transform.position;
+            }
+            if(colliderIsTrigger.isTrigger) {
+                colliderIsTrigger.isTrigger = false;
+            }
+            //Debug.Log("position " + orbitPosition);
+            trigger_Position.transform.position = orbitPosition;
+            //Debug.LogWarning("trigger position " + trigger_Position);
+            msg_Text.text = "Deja que la orbita de una vuelta entera";
+            StartCoroutine(TriggerTimer());
         }
     }
 
@@ -63,11 +70,8 @@ public class FullRotationDetector : MonoBehaviour
         if (other.gameObject.CompareTag("Orbital")) 
         {
             msgText_Object.SetActive(true);
-            msg_Text.text = "Enhorabuena! Conseguiste 30 puntos";
-            int setScore = 0;
-            int getScore = 11;
-
-            playerScorer.PlayerScoreIncrementer(setScore, getScore);
+            msg_Text.text = "Enhorabuena! Conseguiste" + set_score + " puntos";
+            playerScorer.PlayerScoreIncrementer(0, set_score);
 
             //colliderIsTrigger.isTrigger = false;
             

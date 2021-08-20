@@ -12,8 +12,9 @@ public class PlayerScorer : MonoBehaviour
     [SerializeField] public TMP_Text msgScore_Text;
     [SerializeField] public GameObject msgScore_Object;
 
-    private float _Timer;
     [SerializeField] public int countDownTimer_TS;
+
+    private float _Timer;
     private int setCounter;
     private float prev_time;
 
@@ -29,10 +30,14 @@ public class PlayerScorer : MonoBehaviour
     public int update_score;
     public int save_score;
     public int addScore_TS = 10;
+
+    GameController gameController;
+    public int coin_divider = 100;
+    public int coinsTotal;
     void Start()
     {
         playerDistance = GameObject.FindGameObjectWithTag("Player");
-        
+        gameController = FindObjectOfType<GameController>();
         playerScore = 0;
         save_score = 0;
     }
@@ -44,17 +49,11 @@ public class PlayerScorer : MonoBehaviour
         PlayerTouchScreenScore();
     }
 
-    // void UpdatePlayerScoreUI()
-    // {
-    //     playerScore = current_score + update_score_1;
-    //     playerScore_Text.text = playerScore.ToString();
-    // }
-
-
     public void PlayerScorePrint() 
     {
         current_score = save_score + update_score;
         playerScore = current_score;
+        PlayerScoreCoinConverter(playerScore);
         //Debug.LogWarning("playerScore " + playerScore + " current_score " + current_score + " update_score " + update_score);
         playerScore_Text.text = playerScore.ToString();
         
@@ -62,10 +61,10 @@ public class PlayerScorer : MonoBehaviour
 
     public void PlayerScoreIncrementer(int increaseScore, int addedScore)
     {
-        if(addedScore != null) {
+        if(addedScore != 0) {
             save_score += addedScore;
         }
-        Debug.LogError(save_score);
+        //Debug.LogError(save_score);
         update_score = increaseScore;
 
         //Debug.Log(current_score);
@@ -79,32 +78,41 @@ public class PlayerScorer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            setCounter = countDownTimer_TS;
-            msgScore_Object.SetActive(true);
-            StartCoroutine(TouchScreenTimer());
+            StartCoroutine(TouchedScreenScore());
         }
     }
-    IEnumerator TouchScreenTimer()
+    IEnumerator TouchedScreenScore()
+    {   
+        msgScore_Object.SetActive(true);
+        //refresh the counter
+        //hay un bug, cuenta atras mas rapido despues del tercer click
+        setCounter = countDownTimer_TS;
+            while(setCounter > 0)
+            {
+                //cuenta atras
+                //msgScore_Text.text = setCounter.ToString();
+                yield return new WaitForSeconds(1f);
+                setCounter--;
+            }
+            if(setCounter == 0) {
+                score = addScore_TS;
+                PlayerScoreIncrementer(0, score);
+                msgScore_Text.text = "You recieved " + score + " points";
+                msgScore_Object.SetActive(false);
+            }
+
+        
+    }
+
+
+    public void PlayerScoreCoinConverter(int getScore)
     {
-        while(setCounter > 0)
+        if(!gameController.isGameActive)
         {
-            msgScore_Text.text = setCounter.ToString();
-            yield return new WaitForSeconds(1f);
-            setCounter--;
+            coinsTotal  = getScore / coin_divider;
+            msgScore_Object.SetActive(true);
+            msgScore_Text.text = "Puntos convertidas en monedas " + coinsTotal;
         }
-        int addScore = countDownTimer_TS;
-        msgScore_Text.text = "You recieved " + addScore+ " points";
-        update_score = addScore;
-        PlayerScoreIncrementer(0, update_score);
-        yield return new WaitForSeconds(1f);
-        msgScore_Object.SetActive(false);
-    }
-
-
-    public void PlayerWallScorer(int addScore)
-    {
-        // score += addScore;
-        // playerScore_Text.text = score.ToString();
     }
 
 }

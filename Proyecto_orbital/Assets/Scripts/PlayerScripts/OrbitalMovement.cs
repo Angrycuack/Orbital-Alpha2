@@ -10,7 +10,7 @@ public class OrbitalMovement : MonoBehaviour
     private bool rotateUp;
     private static bool timer;
     private float countDown = 10f;
-    private Vector3 direction;
+    public Vector3 direction;
 
     
 
@@ -39,11 +39,6 @@ public class OrbitalMovement : MonoBehaviour
         if (timer) { countDown -= Time.deltaTime; }
         if (countDown <= 0) { ReturnSpeed(); }
 
-        //var localAngel_y = this.gameObject.transform.localPosition.y;
-        //var localAngel_x = this.gameObject.transform.localPosition.x;
-        //var localAngel_z = this.gameObject.transform.localPosition.z;
-        //Debug.Log("position.z " + localAngel_z + " position.x " + localAngel_x + " position.y "+ localAngel_x);
-
     }
     private void FixedUpdate()
     {
@@ -51,7 +46,7 @@ public class OrbitalMovement : MonoBehaviour
 
     }
     /// <summary>
-    /// Método que se encarga de aumentar o disminuar la velocidad del orbital.
+    /// Mï¿½todo que se encarga de aumentar o disminuar la velocidad del orbital.
     /// </summary>
     /// <param name="up_down">Indica si hay que aumentar la velocidad o parar el orbital.</param>
     public void SpeedUp(bool up_down)
@@ -70,7 +65,7 @@ public class OrbitalMovement : MonoBehaviour
         timer = false;
     }
     /// <summary>
-    /// Método llamado cuando se toma el PowerUp Ghost y que desactiva o activa el collider.
+    /// Mï¿½todo llamado cuando se toma el PowerUp Ghost y que desactiva o activa el collider.
     /// </summary>
     /// <param name="state">Activar o desactivar collider.</param>
     public void RemoveCollider(bool state)

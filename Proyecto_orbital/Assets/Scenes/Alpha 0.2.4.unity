@@ -1367,7 +1367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &430882878
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1384,7 +1384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -138}
+  m_AnchoredPosition: {x: 0, y: -266}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &430882879
@@ -1536,12 +1536,14 @@ MonoBehaviour:
   playerScoreText_Object: {fileID: 138803341}
   msgScore_Text: {fileID: 430882879}
   msgScore_Object: {fileID: 430882877}
-  countDownTimer_TS: 10
+  countDownTimer_TS: 5
   score: 0
   current_score: 0
   update_score: 0
   save_score: 0
-  addScore_TS: 10
+  addScore_TS: 15
+  coin_divider: 100
+  coinsTotal: 0
 --- !u!1 &531266314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2579,7 +2581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 360, y: 1343}
+  m_AnchoredPosition: {x: 360, y: 1388}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1044910752
@@ -4282,6 +4284,7 @@ MonoBehaviour:
   showCoin: {fileID: 1044910750}
   totalCoins: 0
   orbitNumber: 0
+  isGameActive: 0
 --- !u!4 &2091344812
 Transform:
   m_ObjectHideFlags: 0

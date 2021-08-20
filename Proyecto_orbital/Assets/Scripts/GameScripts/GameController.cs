@@ -18,12 +18,16 @@ public class GameController : MonoBehaviour
     public int orbitNumber;
     private int playerScoreToPrint;
 
+    // Estado del juego
+    public bool isGameActive;
+
     private void Awake()
     {
         totalCoins = 0;
         score = 0f;
         instance = this;
         scoreController = new ScoreController();
+        isGameActive = true;
         
     }
     private void Update()
@@ -32,14 +36,14 @@ public class GameController : MonoBehaviour
 
     }
     /// <summary>
-    /// Método que devuelve al jugador a la pantalla de Menú.
+    /// Mï¿½todo que devuelve al jugador a la pantalla de Menï¿½.
     /// </summary>
     public void GoToMenu()
     {
         SceneManager.LoadScene(1);
     }
     /// <summary>
-    /// Método que abre o cierra el panel de Pausa y adecua el tiempo a pausado o activo.
+    /// Mï¿½todo que abre o cierra el panel de Pausa y adecua el tiempo a pausado o activo.
     /// </summary>
     /// <param name="state">Activar o desactivar pausa.</param>
     public void PauseGame(bool state)
@@ -49,7 +53,7 @@ public class GameController : MonoBehaviour
         else { Time.timeScale = 1; }
     }
     /// <summary>
-    /// Método que se encarga de activar el panel de Game Over.
+    /// Mï¿½todo que se encarga de activar el panel de Game Over.
     /// </summary>
     public void GameOver()
     {
@@ -59,13 +63,14 @@ public class GameController : MonoBehaviour
             fadeOut.FadeOutEffect();
             Time.timeScale = 0;
             gameOverPanel.SetActive(true);
+            isGameActive = false;
             Debug.Log("Game Over");
         }       
     }
     /// <summary>
-    /// Método que se encarga de ajustar los orbitales en función del valor dado.
+    /// Mï¿½todo que se encarga de ajustar los orbitales en funciï¿½n del valor dado.
     /// </summary>
-    /// <param name="add">Si se pasa el valor true se añaden orbitales. False, se restan y se comprueba que no se haya acabado
+    /// <param name="add">Si se pasa el valor true se aï¿½aden orbitales. False, se restan y se comprueba que no se haya acabado
     /// total de orbitales disponibles.</param>
     public void AddOrbit(bool add)
     {
@@ -73,9 +78,9 @@ public class GameController : MonoBehaviour
         else { orbitNumber--; GameOver(); }
     }
     /// <summary>
-    /// Método que se encarga de añadir un número de monedas determinado a la variable en cuestión.
+    /// Mï¿½todo que se encarga de aï¿½adir un nï¿½mero de monedas determinado a la variable en cuestiï¿½n.
     /// </summary>
-    /// <param name="value">El valor dado por el que llama al método que actualiza la variable de las
+    /// <param name="value">El valor dado por el que llama al mï¿½todo que actualiza la variable de las
     /// monedas y el texto de las mismas.</param>
     public void AddCoins(int value)
     {
