@@ -5,18 +5,21 @@ using TMPro;
 
 public class PlayerScorer : MonoBehaviour
 {
-    private int playerScore;
+    
     [SerializeField] public TMP_Text playerScore_Text;
     [SerializeField] public GameObject playerScoreText_Object;
 
     [SerializeField] public TMP_Text msgScore_Text;
     [SerializeField] public GameObject msgScore_Object;
-
-    [SerializeField] public int countDownTimer_TS;
+    [Header ("Set the time touch screen (float)")]
+    [SerializeField] public float countDownTimer_TS;
+    [Header ("Set the score touch screen")]
+    public int addScore_TS;
 
     private float _Timer;
-    private int setCounter;
+    private float setCounter;
     private float prev_time;
+    bool touchedScreen;
 
     GameObject playerDistance;
     Transform orbitRotation;
@@ -25,15 +28,18 @@ public class PlayerScorer : MonoBehaviour
     private float set_rotation;
     //private float end_rotation = 0;
 
-    public int score;
+    [Header ("Total Player Score Stat")]
+    public int playerScore;
     public int current_score;
     public int update_score;
     public int save_score;
-    public int addScore_TS = 10;
+    public int score;
 
+    [Header ("Coin Stat")]
     GameController gameController;
     public int coin_divider = 100;
     public int coinsTotal;
+
     void Start()
     {
         playerDistance = GameObject.FindGameObjectWithTag("Player");
@@ -78,6 +84,7 @@ public class PlayerScorer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            touchedScreen = true;
             StartCoroutine(TouchedScreenScore());
         }
     }
@@ -86,19 +93,25 @@ public class PlayerScorer : MonoBehaviour
         msgScore_Object.SetActive(true);
         //refresh the counter
         //hay un bug, cuenta atras mas rapido despues del tercer click
-        setCounter = countDownTimer_TS;
-            while(setCounter > 0)
+        // setCounter = countDownTimer_TS;
+            // while(setCounter > 0)
+            // {
+            //     //cuenta atras
+            //     msgScore_Text.text = setCounter.ToString();
+            //     yield return new WaitForSeconds(1f);
+                
+            //     setCounter--;
+            // }
+            msgScore_Object.SetActive(false);
+            yield return new WaitForSeconds(countDownTimer_TS);
+            msgScore_Object.SetActive(true);
+            if(touchedScreen) 
             {
-                //cuenta atras
-                //msgScore_Text.text = setCounter.ToString();
-                yield return new WaitForSeconds(1f);
-                setCounter--;
-            }
-            if(setCounter == 0) {
                 score = addScore_TS;
                 PlayerScoreIncrementer(0, score);
                 msgScore_Text.text = "You recieved " + score + " points";
                 msgScore_Object.SetActive(false);
+                touchedScreen = false;
             }
 
         

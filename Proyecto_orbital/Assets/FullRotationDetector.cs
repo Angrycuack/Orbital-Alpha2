@@ -10,10 +10,13 @@ public class FullRotationDetector : MonoBehaviour
     GameObject trigger_Position;
     float old_position;
 
+    GameController gameController;
+
     public TMP_Text msg_Text;
     public GameObject msgText_Object;
 
     SphereCollider colliderIsTrigger;
+    // bool onTriggerExit;
 
     PlayerScorer playerScorer;
     public int set_score = 10;
@@ -26,6 +29,7 @@ public class FullRotationDetector : MonoBehaviour
         orbit = GameObject.FindWithTag("Orbital");
 
         playerScorer = FindObjectOfType<PlayerScorer>();
+        gameController = FindObjectOfType<GameController>();
     }
 
 
@@ -39,6 +43,10 @@ public class FullRotationDetector : MonoBehaviour
         
         // Debug.LogError("orbit position " + save_orbit_position);
         SetTriggerPosition();
+        if(!gameController.isGameActive)
+        {
+            msgText_Object.SetActive(false);
+        }
 
     }
 
@@ -58,9 +66,12 @@ public class FullRotationDetector : MonoBehaviour
             }
             //Debug.Log("position " + orbitPosition);
             trigger_Position.transform.position = orbitPosition;
+            
             //Debug.LogWarning("trigger position " + trigger_Position);
-            msg_Text.text = "Deja que la orbita de una vuelta entera";
-            StartCoroutine(TriggerTimer());
+                msg_Text.text = "Deja que la orbita de una vuelta entera";
+                StartCoroutine(TriggerTimer());
+            
+
         }
     }
 
@@ -70,18 +81,19 @@ public class FullRotationDetector : MonoBehaviour
         if (other.gameObject.CompareTag("Orbital")) 
         {
             msgText_Object.SetActive(true);
-            msg_Text.text = "Enhorabuena! Conseguiste" + set_score + " puntos";
+            msg_Text.text = "Enhorabuena! Conseguiste " + set_score + " puntos";
             playerScorer.PlayerScoreIncrementer(0, set_score);
 
-            //colliderIsTrigger.isTrigger = false;
-            
-            
+
+            //colliderIsTrigger.isTrigger = false;   
         }
     }
     IEnumerator TriggerTimer()
     {
         msgText_Object.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        msgText_Object.SetActive(false);
+        yield return new WaitForSeconds(5f); 
         colliderIsTrigger.isTrigger = true;
         yield return new WaitForSeconds(2f);
         msgText_Object.SetActive(false);

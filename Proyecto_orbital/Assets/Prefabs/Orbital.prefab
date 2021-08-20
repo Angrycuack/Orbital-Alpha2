@@ -114,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centralSphere: {fileID: 0}
   basicSpeed: 50
+  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &-6182930188022870325
 MonoBehaviour:
   m_ObjectHideFlags: 0

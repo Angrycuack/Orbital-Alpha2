@@ -1536,12 +1536,13 @@ MonoBehaviour:
   playerScoreText_Object: {fileID: 138803341}
   msgScore_Text: {fileID: 430882879}
   msgScore_Object: {fileID: 430882877}
-  countDownTimer_TS: 5
-  score: 0
+  countDownTimer_TS: 10
+  addScore_TS: 15
+  playerScore: 0
   current_score: 0
   update_score: 0
   save_score: 0
-  addScore_TS: 15
+  score: 0
   coin_divider: 100
   coinsTotal: 0
 --- !u!1 &531266314
