@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TapWall : MonoBehaviour
 {
-    //Generamos variables para saber si el objeto está activo o no y también para desactivarlo.
+    //Generamos variables para saber si el objeto estï¿½ activo o no y tambiï¿½n para desactivarlo.
     public bool active;
     public bool defaultactive;
     World_settings worldsettings;
@@ -12,6 +12,7 @@ public class TapWall : MonoBehaviour
     private BoxCollider wallCollider;
     public Material visible;
     public Material invisible;
+    private BoxCollider orbitCollider;
 
     private void Start()
     {
@@ -19,6 +20,7 @@ public class TapWall : MonoBehaviour
         
         wallCollider = GetComponent<BoxCollider>();
         worldsettings = FindObjectOfType<World_settings>();
+        orbitCollider = GetComponent<BoxCollider>();
         active = worldsettings.generalactive;
         if (defaultactive == true)
         {
@@ -28,18 +30,20 @@ public class TapWall : MonoBehaviour
         {
             GetComponent<MeshRenderer>().material = visible;
             wallCollider.enabled = true;
+            orbitCollider.enabled = true;
         }
         else
         {
             GetComponent<MeshRenderer>().material = invisible;
             wallCollider.enabled = false;
+            orbitCollider.enabled = false;
         }
     }
 
     void Update()
     {
-        //Cada vez que se pulsa el ratón, se desactiva/activa la visual del objeto 
-        //y su collider en función del estado en el que se encuentre.
+        //Cada vez que se pulsa el ratï¿½n, se desactiva/activa la visual del objeto 
+        //y su collider en funciï¿½n del estado en el que se encuentre.
         if (Input.GetMouseButtonDown(0))
         {
             worldsettings = FindObjectOfType<World_settings>();

@@ -18,6 +18,10 @@ public class FullRotationDetector : MonoBehaviour
     SphereCollider colliderIsTrigger;
     // bool onTriggerExit;
 
+    private int numClic = 0;
+    public float timerInt = 5;
+    public bool timerIntRunning = false;
+
     PlayerScorer playerScorer;
     public int set_score = 10;
     void Start()
@@ -43,6 +47,7 @@ public class FullRotationDetector : MonoBehaviour
         
         // Debug.LogError("orbit position " + save_orbit_position);
         SetTriggerPosition();
+        InterruptorCollider();
         if(!gameController.isGameActive)
         {
             msgText_Object.SetActive(false);
@@ -56,50 +61,82 @@ public class FullRotationDetector : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
 
-            
             if (orbit != null) 
             {
                 orbitPosition = orbit.transform.position;
             }
             // Corregido
              colliderIsTrigger.enabled = false;
+             colliderIsTrigger.isTrigger = false;
             // posibles solo
             //Debug.Log("position " + orbitPosition);
             trigger_Position.transform.position = orbitPosition;
             float last_trigger_pos = trigger_Position.transform.position.z;
             Debug.Log(last_trigger_pos);
             //Debug.LogWarning("trigger position " + trigger_Position);
-                msg_Text.text = "Deja que la orbita de una vuelta entera";
-                StartCoroutine(TriggerTimer());
+            if (numClic == 0) 
+            {
+                timerIntRunning = true;
+                timerInt = 5;
+                msg_Text.text = "Mision 360";
+                StartCoroutine(DisplayTimer());
+                InterruptorCollider();
+                numClic = 1;
+                Debug.Log(numClic);
+            } 
+            else if (numClic == 1) 
+            {
+                timerIntRunning = true;
+                timerInt = 5;
+                msg_Text.text = "Mision 360";
+                StartCoroutine(DisplayTimer());
+                InterruptorCollider();
+                numClic = 0;
+            }
+
+            
+            
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerExit(Collider other)
     {
         
         if (other.gameObject.CompareTag("Orbital")) 
         {
+            Debug.Log("Hello, Collider");
             msgText_Object.SetActive(true);
             msg_Text.text = "Enhorabuena! Conseguiste " + set_score + " puntos";
+            
             playerScorer.PlayerScoreIncrementer(0, set_score);
 
 
             //colliderIsTrigger.isTrigger = false;   
         }
     }
-    IEnumerator TriggerTimer()
+    IEnumerator DisplayTimer()
     {
         msgText_Object.SetActive(true);
         yield return new WaitForSeconds(1f);
         msgText_Object.SetActive(false);
-        yield return new WaitForSeconds(5f); 
-        colliderIsTrigger.enabled = true;
-        colliderIsTrigger.isTrigger = true;
-        yield return new WaitForSeconds(2f);
-        msgText_Object.SetActive(false);
-        //colliderIsTrigger.enabled = true;
-        //yield return new WaitForSeconds(1f);
-        
+    }
+
+    void InterruptorCollider () 
+    {
+        if(timerIntRunning)
+        {
+            if(timerInt > 0)
+            {
+                timerInt -= Time.deltaTime;
+            }
+            else{
+                Debug.Log("Hello, Michael!");
+                colliderIsTrigger.enabled = true;
+                colliderIsTrigger.isTrigger = true;
+                timerInt = 0;
+                timerIntRunning = false;
+            }
+        }
 
     }
 }

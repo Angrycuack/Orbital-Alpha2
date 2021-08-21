@@ -16,10 +16,11 @@ public class OrbitDetector : MonoBehaviour
     void Start()
     {
         playerScorer = FindObjectOfType<PlayerScorer>();
+        _Timer = 0;
 
     }
 
-    IEnumerator OnTriggerEnter(Collider other)
+    IEnumerator OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Orbital") 
         {

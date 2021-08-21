@@ -129,7 +129,7 @@ public class PlayerScorer : MonoBehaviour
     public void PlayerScoreDisplay(int score) 
     {
         msgScore_Object.SetActive(true);
-        msgScore_Text.text = "Pasa cerca del muro, te llevas " + score + "puntos";
+        msgScore_Text.text = "Pasa cerca del muro, te llevas " + score + " puntos";
         msgScore_Object.SetActive(false);
     }
 
