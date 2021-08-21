@@ -113,8 +113,6 @@ public class PlayerScorer : MonoBehaviour
                 msgScore_Object.SetActive(false);
                 touchedScreen = false;
             }
-
-        
     }
 
 
@@ -126,6 +124,13 @@ public class PlayerScorer : MonoBehaviour
             msgScore_Object.SetActive(true);
             msgScore_Text.text = "Puntos convertidas en monedas " + coinsTotal;
         }
+    }
+
+    public void PlayerScoreDisplay(int score) 
+    {
+        msgScore_Object.SetActive(true);
+        msgScore_Text.text = "Pasa cerca del muro, te llevas " + score + "puntos";
+        msgScore_Object.SetActive(false);
     }
 
 }
