@@ -61,11 +61,8 @@ public class FullRotationDetector : MonoBehaviour
             {
                 orbitPosition = orbit.transform.position;
             }
-            // Aqui esta el problema cuando este el trigger desactivado
-            // empuja hay colision y empuja al orbital 
-             if(colliderIsTrigger.isTrigger) {
-                 colliderIsTrigger.isTrigger = false;
-             }
+            // Corregido
+             colliderIsTrigger.enabled = false;
             // posibles solo
             //Debug.Log("position " + orbitPosition);
             trigger_Position.transform.position = orbitPosition;
@@ -96,6 +93,7 @@ public class FullRotationDetector : MonoBehaviour
         yield return new WaitForSeconds(1f);
         msgText_Object.SetActive(false);
         yield return new WaitForSeconds(5f); 
+        colliderIsTrigger.enabled = true;
         colliderIsTrigger.isTrigger = true;
         yield return new WaitForSeconds(2f);
         msgText_Object.SetActive(false);
