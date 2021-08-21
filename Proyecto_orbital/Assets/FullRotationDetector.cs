@@ -61,21 +61,23 @@ public class FullRotationDetector : MonoBehaviour
             {
                 orbitPosition = orbit.transform.position;
             }
-            if(colliderIsTrigger.isTrigger) {
-                colliderIsTrigger.isTrigger = false;
-            }
+            // Aqui esta el problema cuando este el trigger desactivado
+            // empuja hay colision y empuja al orbital 
+             if(colliderIsTrigger.isTrigger) {
+                 colliderIsTrigger.isTrigger = false;
+             }
+            // posibles solo
             //Debug.Log("position " + orbitPosition);
             trigger_Position.transform.position = orbitPosition;
-            
+            float last_trigger_pos = trigger_Position.transform.position.z;
+            Debug.Log(last_trigger_pos);
             //Debug.LogWarning("trigger position " + trigger_Position);
                 msg_Text.text = "Deja que la orbita de una vuelta entera";
                 StartCoroutine(TriggerTimer());
-            
-
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         
         if (other.gameObject.CompareTag("Orbital")) 

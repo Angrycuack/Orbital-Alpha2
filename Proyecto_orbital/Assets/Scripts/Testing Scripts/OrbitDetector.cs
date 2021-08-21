@@ -7,8 +7,7 @@ public class OrbitDetector : MonoBehaviour
 
     PlayerScorer playerScorer;
 
-    public bool wallDetected;
-    int level;
+    private int level = 0;
     
     float _Timer;
     float multiplyer;
@@ -16,8 +15,8 @@ public class OrbitDetector : MonoBehaviour
 
     void Start()
     {
-        playerScorer = GameObject.Find("ScoreController").GetComponent<PlayerScorer>();
-        level = 0;
+        playerScorer = FindObjectOfType<PlayerScorer>();
+
     }
 
     // private void OnTriggerEnter(Collider other)
@@ -50,49 +49,48 @@ public class OrbitDetector : MonoBehaviour
     {
         if (other.gameObject.tag == "Orbital") 
         {
-            wallDetected = true;
-            if(wallDetected) 
-            {   
-                Debug.LogWarning(level);
-                if(level == 00) 
-                {
-                    print("50 points");
+            Debug.LogWarning(level);
+            switch (level)
+            {
+                case 1:
+                    print("50");
+                    playerScorer.PlayerScoreIncrementer(0,50);
                     _Timer = 5f;
-                    level ++;
-                }
-                else if (level == 1)
-                {
-                    print("100 points");
+                    level++;
+                    break;
+                case 2:
+                    print("110");
+                    playerScorer.PlayerScoreIncrementer(0,110);
                     _Timer = 4f;
                     level ++;
-                }
-                else if (level == 2) 
-                {
-                    print("200 points");
+                    break;
+                case 3:
+                    print("180");
+                    playerScorer.PlayerScoreIncrementer(0,180);
                     _Timer = 3f;
                     level ++;
-
-                }
-                else if (level == 3)
-                {
-                    print("300 points");
+                    break;
+                case 4:
+                    print("234");
+                    playerScorer.PlayerScoreIncrementer(0,234);
                     _Timer = 2f;
+                    level++;
+                    break;
+                case 5:
+                    print("327");
+                    playerScorer.PlayerScoreIncrementer(0,327);
                     level ++;
-                }
-                else if (level == 4)
-                {
-                    print("400 points");
-                    _Timer = 1f;
-                }            
+                    break;
+                default:
+                    print("20 puntos");
+                    playerScorer.PlayerScoreIncrementer(0, 20);
+                    _Timer = 6f;
+                    level ++;
+                    break;
             }
             yield return new WaitForSeconds(_Timer);
             level = 0;
-            wallDetected = false;
-            if (!wallDetected)
-            {
                 Debug.Log("Thank you!");
-                
-            }   
         }
     } 
 
