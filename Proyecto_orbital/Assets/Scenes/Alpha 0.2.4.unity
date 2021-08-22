@@ -1536,19 +1536,22 @@ MonoBehaviour:
   playerScoreText_Object: {fileID: 138803341}
   msgScore_Text: {fileID: 430882879}
   msgScore_Object: {fileID: 430882877}
-  setTouchScreenTimer: 10
+  setTouchScreenTimer: 5
   addScore_TS: 8
+  timerIntRunning: 0
+  _statTimer: 0
   playerScore: 0
   current_score: 0
   update_score: 0
   save_score: 0
-  score: 0
   _touchScreenPoints: 0
   _fullRotationPoints: 0
   _nearWallPoints: 0
   _distancePoints: 0
   coin_divider: 100
-  coinsTotal: 0
+  convertedCoins: 0
+  current_Coins: 0
+  totalCoins: 0
 --- !u!1 &531266314
 GameObject:
   m_ObjectHideFlags: 0

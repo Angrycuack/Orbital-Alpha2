@@ -33,7 +33,6 @@ public class PlayerScorer : MonoBehaviour
     public int _nearWallPoints;
     public int _distancePoints;
     [Header ("Coin Stat")]
-
     public int coin_divider = 100;
     public int convertedCoins;
     public int current_Coins;
@@ -46,19 +45,19 @@ public class PlayerScorer : MonoBehaviour
         playerScore = 0;
         save_score = 0;
         totalCoins = 0;
+        current_score = 0;
     }
 
     void Update()
     {
 
-        PlayerScorePrint();
-        PlayerTouchScreenScore();
+     PlayerTouchScreenIncrementer();
     }
 
-    public void PlayerScorePrint() 
+    public void PlayerScorePrint(int gscore) 
     {
-        current_score = save_score + update_score;
-        playerScore = current_score;
+        
+        playerScore = gscore;
         PlayerScoreCoinConverter(playerScore);
         //Debug.LogWarning("playerScore " + playerScore + " current_score " + current_score + " update_score " + update_score);
         playerScore_Text.text = playerScore.ToString();
@@ -67,36 +66,46 @@ public class PlayerScorer : MonoBehaviour
 
     public void PlayerScoreIncrementer(int increaseScore, int addedScore)
     {
-        if(addedScore != 0) {
+        if(addedScore > 0) {
             save_score += addedScore;
         }
         //Debug.LogError(save_score);
         update_score = increaseScore;
         //save for stats
         _distancePoints = increaseScore;
+        current_score = update_score;
+        
+        current_score = save_score + update_score;
 
+        
         //Debug.Log(current_score);
-        PlayerScorePrint();
+        PlayerScorePrint(current_score);
         //playerScore_Text.text = score.ToString();
         // refresh_score
 
     }
 
-    void PlayerTouchScreenScore()
+    void PlayerTouchScreenIncrementer()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(setTouchScreenTimer >= 0 && timerIntRunning)
+            if(!timerIntRunning)
             {
+                timerIntRunning = true;
                 _statTimer = 0;
             }
-            timerIntRunning = true;
-            _statTimer = 0;
-            
-
-            
+            else
+            {
+                timerIntRunning = true;
+                _statTimer = 0;
+            }
             
         }
+        
+        TimerTouchScreenScore();
+    }
+    void TimerTouchScreenScore ()
+    {
         if(timerIntRunning)
         {
             if(_statTimer < setTouchScreenTimer)
@@ -105,9 +114,8 @@ public class PlayerScorer : MonoBehaviour
             }
             else
             {
-                PlayerScoreIncrementer(0, addScore_TS);
                 //save to stats
-                _touchScreenPoints += addScore_TS;
+                PlayerTouchScreenScore(addScore_TS);
                 msgScore_Text.text = "You recieved " + addScore_TS + " points";
                 StartCoroutine(DisplayScoreScreen());
                 _statTimer = 0;
@@ -125,14 +133,21 @@ public class PlayerScorer : MonoBehaviour
 
     public void PlayerNearWallScore (int getscore) 
     {
+        int score_to_add = getscore;
         _nearWallPoints += getscore;
-        PlayerScoreIncrementer(0, _nearWallPoints);
+        PlayerScoreIncrementer(0, score_to_add);
     }
     public void PlayerFullRotationScore(int getscore)
     {
         _fullRotationPoints += getscore;
         PlayerScoreIncrementer(0,_fullRotationPoints);
+    }
 
+    void PlayerTouchScreenScore (int getscore)
+    {
+        int score_to_add = getscore;
+        _touchScreenPoints += score_to_add;
+        PlayerScoreIncrementer(0, score_to_add);
     }
 
 
@@ -153,7 +168,6 @@ public class PlayerScorer : MonoBehaviour
 
     public void PlayerScoreDisplay(string score) 
     {
-        
         msgScore_Text.text = "Pasa cerca del muro, te llevas " + score + " puntos";
         StartCoroutine(DisplayScoreScreen());
     }

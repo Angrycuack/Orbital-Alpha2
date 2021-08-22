@@ -82,7 +82,7 @@ public class FullRotationDetector : MonoBehaviour
                 StartCoroutine(DisplayTimer());
                 InterruptorCollider();
                 numClic = 1;
-                Debug.Log(numClic);
+    
             } 
             else if (numClic == 1) 
             {

@@ -7,10 +7,12 @@ public class OrbitDetector : MonoBehaviour
 
     PlayerScorer playerScorer;
 
-    private int level = 0;
+    private int level;
+    bool collided = false;
     
     float _Timer;
     float multiplyer;
+
 
     BoxCollider colliderNear;
 
@@ -28,13 +30,12 @@ public class OrbitDetector : MonoBehaviour
     {
         if (other.gameObject.tag == "Orbital") 
         {
-            Debug.LogWarning(level);
+            Debug.LogWarning(level + " level");
             switch (level)
             {
                 case 0:
                     Debug.LogWarning("20 p" + _Timer);
                     print("20 puntos");
-                    //playerScorer.PlayerScoreIncrementer(0, 20);
                     playerScorer.PlayerNearWallScore(20);
                     playerScorer.PlayerScoreDisplay("50");
                     _Timer = 6f;
@@ -43,7 +44,6 @@ public class OrbitDetector : MonoBehaviour
                 case 1:
                     Debug.LogWarning("50 p" + _Timer);
                     print("50");
-                    //playerScorer.PlayerScoreIncrementer(0, 50);
                     playerScorer.PlayerNearWallScore(50);
                     playerScorer.PlayerScoreDisplay("110");
                     _Timer = 5f;
@@ -52,7 +52,6 @@ public class OrbitDetector : MonoBehaviour
                 case 2:
                     Debug.LogWarning("110 p" + _Timer);
                     print("110");
-                    //playerScorer.PlayerScoreIncrementer(0, 110);
                     playerScorer.PlayerNearWallScore(110);
                     playerScorer.PlayerScoreDisplay("180");
                     _Timer = 4f;
@@ -61,7 +60,6 @@ public class OrbitDetector : MonoBehaviour
                 case 3:
                     Debug.LogWarning("180 p"+ _Timer);
                     print("180");
-                    //playerScorer.PlayerScoreIncrementer(0, 180);
                     playerScorer.PlayerNearWallScore(180);
                     playerScorer.PlayerScoreDisplay("234");
                     _Timer = 3f;
@@ -70,7 +68,6 @@ public class OrbitDetector : MonoBehaviour
                 case 4:
                     Debug.LogWarning("234 p" + _Timer);
                     print("234");
-                    //playerScorer.PlayerScoreIncrementer(0, 234);
                     playerScorer.PlayerNearWallScore(234);
                     playerScorer.PlayerScoreDisplay("327");
                     _Timer = 2f;
@@ -79,7 +76,6 @@ public class OrbitDetector : MonoBehaviour
                 case 5:
                     Debug.LogWarning("327 p" + _Timer);
                     print("327");
-                    //playerScorer.PlayerScoreIncrementer(0, 327);
                     playerScorer.PlayerNearWallScore(327);
                     playerScorer.PlayerScoreDisplay("500");
                     _Timer = 1f;
@@ -88,11 +84,21 @@ public class OrbitDetector : MonoBehaviour
 
             }
             colliderNear.enabled = false;
+            // float norTime = 0;
+            // while(norTime <= 1f) 
+            // {
+            //     norTime += Time.deltaTime / _Timer;
+            //     Debug.Log(norTime);
+            //     yield return null;
+            // }
             yield return new WaitForSeconds(_Timer);
             level = 0;
                 Debug.Log("Thank you!");
         }
     } 
-
+    void ComboScorer() 
+    {
+        
+    }
 
 }
