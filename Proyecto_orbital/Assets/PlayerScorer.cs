@@ -12,14 +12,13 @@ public class PlayerScorer : MonoBehaviour
     [SerializeField] public TMP_Text msgScore_Text;
     [SerializeField] public GameObject msgScore_Object;
     [Header ("Set the time touch screen (float)")]
-    [SerializeField] public float countDownTimer_TS;
+    [SerializeField] public float setTouchScreenTimer;
     [Header ("Set the score touch screen")]
     public int addScore_TS;
 
     private float _Timer;
     private float setCounter;
     private float prev_time;
-    bool touchedScreen;
 
     GameObject playerDistance;
     Transform orbitRotation;
@@ -33,12 +32,17 @@ public class PlayerScorer : MonoBehaviour
     public int current_score;
     public int update_score;
     public int save_score;
-    public int score;
+    [Header ("Incrementer Points Stats")]
+    public int _touchScreenPoints;
+    public int _fullRotationPoints;
+    public int _nearWallPoints;
+    public int _distancePoints;
 
     [Header ("Coin Stat")]
     GameController gameController;
     public int coin_divider = 100;
     public int coinsTotal;
+    public int current_Coins;
 
     void Start()
     {
@@ -72,6 +76,8 @@ public class PlayerScorer : MonoBehaviour
         }
         //Debug.LogError(save_score);
         update_score = increaseScore;
+        //save for stats
+        _distancePoints = increaseScore;
 
         //Debug.Log(current_score);
         PlayerScorePrint();
@@ -84,35 +90,36 @@ public class PlayerScorer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            touchedScreen = true;
-            StartCoroutine(TouchedScreenScore());
+            float _timer = setTouchScreenTimer;
+            StartCoroutine(TouchedScreenScore(_timer));
         }
     }
-    IEnumerator TouchedScreenScore()
-    {   
+    IEnumerator TouchedScreenScore(float _timer)
+    {   Debug.LogError(_timer);
         msgScore_Object.SetActive(true);
-        //refresh the counter
-        //hay un bug, cuenta atras mas rapido despues del tercer click
-        // setCounter = countDownTimer_TS;
-            // while(setCounter > 0)
-            // {
-            //     //cuenta atras
-            //     msgScore_Text.text = setCounter.ToString();
-            //     yield return new WaitForSeconds(1f);
-                
-            //     setCounter--;
-            // }
-            msgScore_Object.SetActive(false);
-            yield return new WaitForSeconds(countDownTimer_TS);
-            msgScore_Object.SetActive(true);
-            if(touchedScreen) 
-            {
-                score = addScore_TS;
-                PlayerScoreIncrementer(0, score);
-                msgScore_Text.text = "You recieved " + score + " points";
-                msgScore_Object.SetActive(false);
-                touchedScreen = false;
-            }
+        msgScore_Object.SetActive(false);
+        yield return new WaitForSeconds(_timer);
+        msgScore_Object.SetActive(true);
+        Debug.LogError(_timer);
+        PlayerScoreIncrementer(0, addScore_TS);
+        //save to stats
+        _touchScreenPoints += addScore_TS;
+        msgScore_Text.text = "You recieved " + addScore_TS + " points";
+        msgScore_Object.SetActive(false);
+        
+
+    }
+
+    public void PlayerNearWallScore (int getscore) 
+    {
+        _nearWallPoints += getscore;
+        PlayerScoreIncrementer(0, _nearWallPoints);
+    }
+    public void PlayerFullRotationScore(int getscore)
+    {
+        _fullRotationPoints += getscore;
+        PlayerScoreIncrementer(0,_fullRotationPoints);
+
     }
 
 
@@ -122,11 +129,15 @@ public class PlayerScorer : MonoBehaviour
         {
             coinsTotal  = getScore / coin_divider;
             msgScore_Object.SetActive(true);
-            msgScore_Text.text = "Puntos convertidas en monedas " + coinsTotal;
+            msgScore_Text.text = "Monedas obtenidas: " + current_Coins + "\nPuntos convertidas en monedas " + coinsTotal;
         }
     }
 
-    public void PlayerScoreDisplay(int score) 
+    public void PlayerCoins(int getcoins) {
+        current_Coins += getcoins;
+    }
+
+    public void PlayerScoreDisplay(string score) 
     {
         msgScore_Object.SetActive(true);
         msgScore_Text.text = "Pasa cerca del muro, te llevas " + score + " puntos";

@@ -11,10 +11,12 @@ public class Coin : MonoBehaviour
     //private float speedRotation = 1f;
 
     GameController gc_addCoins;
+    PlayerScorer playerScorer;
 
     void Start()
     {
-        gc_addCoins = GameObject.FindObjectOfType<GameController>();
+        gc_addCoins = FindObjectOfType<GameController>();
+        playerScorer = FindObjectOfType<PlayerScorer>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,5 +37,6 @@ public class Coin : MonoBehaviour
         // Debug.Log("El jugador ha conseguido " + playerCoins + " monedas");
         // Debug.Log("El numero es " + valueCoins + " monedas");
         gc_addCoins.AddCoins(playerCoins);
+        playerScorer.PlayerCoins(playerCoins);
     }
 }

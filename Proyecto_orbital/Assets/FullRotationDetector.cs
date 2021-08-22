@@ -72,7 +72,7 @@ public class FullRotationDetector : MonoBehaviour
             //Debug.Log("position " + orbitPosition);
             trigger_Position.transform.position = orbitPosition;
             float last_trigger_pos = trigger_Position.transform.position.z;
-            Debug.Log(last_trigger_pos);
+            //Debug.Log(last_trigger_pos);
             //Debug.LogWarning("trigger position " + trigger_Position);
             if (numClic == 0) 
             {
@@ -104,13 +104,10 @@ public class FullRotationDetector : MonoBehaviour
         
         if (other.gameObject.CompareTag("Orbital")) 
         {
-            Debug.Log("Hello, Collider");
             msgText_Object.SetActive(true);
             msg_Text.text = "Enhorabuena! Conseguiste " + set_score + " puntos";
-            
-            playerScorer.PlayerScoreIncrementer(0, set_score);
 
-
+            playerScorer.PlayerFullRotationScore(set_score);
             //colliderIsTrigger.isTrigger = false;   
         }
     }
@@ -130,7 +127,6 @@ public class FullRotationDetector : MonoBehaviour
                 timerInt -= Time.deltaTime;
             }
             else{
-                Debug.Log("Hello, Michael!");
                 colliderIsTrigger.enabled = true;
                 colliderIsTrigger.isTrigger = true;
                 timerInt = 0;

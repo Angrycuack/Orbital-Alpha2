@@ -1536,13 +1536,17 @@ MonoBehaviour:
   playerScoreText_Object: {fileID: 138803341}
   msgScore_Text: {fileID: 430882879}
   msgScore_Object: {fileID: 430882877}
-  countDownTimer_TS: 10
-  addScore_TS: 15
+  setTouchScreenTimer: 10
+  addScore_TS: 8
   playerScore: 0
   current_score: 0
   update_score: 0
   save_score: 0
   score: 0
+  _touchScreenPoints: 0
+  _fullRotationPoints: 0
+  _nearWallPoints: 0
+  _distancePoints: 0
   coin_divider: 100
   coinsTotal: 0
 --- !u!1 &531266314
@@ -3480,6 +3484,10 @@ PrefabInstance:
       propertyPath: msg_Text
       value: 
       objectReference: {fileID: 1371388711}
+    - target: {fileID: 3110283277856390760, guid: 691f366b77aff7f46b5d8d349ec8f555, type: 3}
+      propertyPath: timerInt
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3110283277856390760, guid: 691f366b77aff7f46b5d8d349ec8f555, type: 3}
       propertyPath: msgText_Object
       value: 
