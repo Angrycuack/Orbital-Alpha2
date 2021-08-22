@@ -32,7 +32,7 @@ public class OrbitDetector : MonoBehaviour
             switch (level)
             {
                 case 0:
-                    Debug.LogWarning("20 p");
+                    Debug.LogWarning("20 p" + _Timer);
                     print("20 puntos");
                     //playerScorer.PlayerScoreIncrementer(0, 20);
                     playerScorer.PlayerNearWallScore(20);
@@ -41,7 +41,7 @@ public class OrbitDetector : MonoBehaviour
                     level ++;
                     break;
                 case 1:
-                    Debug.LogWarning("50 p");
+                    Debug.LogWarning("50 p" + _Timer);
                     print("50");
                     //playerScorer.PlayerScoreIncrementer(0, 50);
                     playerScorer.PlayerNearWallScore(50);
@@ -50,7 +50,7 @@ public class OrbitDetector : MonoBehaviour
                     level++;
                     break;
                 case 2:
-                    Debug.LogWarning("110 p");
+                    Debug.LogWarning("110 p" + _Timer);
                     print("110");
                     //playerScorer.PlayerScoreIncrementer(0, 110);
                     playerScorer.PlayerNearWallScore(110);
@@ -59,7 +59,7 @@ public class OrbitDetector : MonoBehaviour
                     level ++;
                     break;
                 case 3:
-                    Debug.LogWarning("180 p");
+                    Debug.LogWarning("180 p"+ _Timer);
                     print("180");
                     //playerScorer.PlayerScoreIncrementer(0, 180);
                     playerScorer.PlayerNearWallScore(180);
@@ -68,7 +68,7 @@ public class OrbitDetector : MonoBehaviour
                     level ++;
                     break;
                 case 4:
-                    Debug.LogWarning("234 p");
+                    Debug.LogWarning("234 p" + _Timer);
                     print("234");
                     //playerScorer.PlayerScoreIncrementer(0, 234);
                     playerScorer.PlayerNearWallScore(234);
@@ -77,7 +77,7 @@ public class OrbitDetector : MonoBehaviour
                     level++;
                     break;
                 case 5:
-                    Debug.LogWarning("327 p");
+                    Debug.LogWarning("327 p" + _Timer);
                     print("327");
                     //playerScorer.PlayerScoreIncrementer(0, 327);
                     playerScorer.PlayerNearWallScore(327);

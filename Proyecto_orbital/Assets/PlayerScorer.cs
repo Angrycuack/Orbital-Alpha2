@@ -8,24 +8,19 @@ public class PlayerScorer : MonoBehaviour
     
     [SerializeField] public TMP_Text playerScore_Text;
     [SerializeField] public GameObject playerScoreText_Object;
+    GameController gameController;
 
     [SerializeField] public TMP_Text msgScore_Text;
     [SerializeField] public GameObject msgScore_Object;
-    [Header ("Set the time touch screen (float)")]
-    [SerializeField] public float setTouchScreenTimer;
-    [Header ("Set the score touch screen")]
-    public int addScore_TS;
 
-    private float _Timer;
-    private float setCounter;
-    private float prev_time;
+    [Header ("Touch Screen Config")]
+    [SerializeField] public float setTouchScreenTimer;
+    public int addScore_TS;
+    public bool timerIntRunning = false;
+    public float _statTimer;
 
     GameObject playerDistance;
     Transform orbitRotation;
-
-    private float full_rotation;
-    private float set_rotation;
-    //private float end_rotation = 0;
 
     [Header ("Total Player Score Stat")]
     public int playerScore;
@@ -37,12 +32,12 @@ public class PlayerScorer : MonoBehaviour
     public int _fullRotationPoints;
     public int _nearWallPoints;
     public int _distancePoints;
-
     [Header ("Coin Stat")]
-    GameController gameController;
+
     public int coin_divider = 100;
-    public int coinsTotal;
+    public int convertedCoins;
     public int current_Coins;
+    public int totalCoins;
 
     void Start()
     {
@@ -50,11 +45,12 @@ public class PlayerScorer : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
         playerScore = 0;
         save_score = 0;
+        totalCoins = 0;
     }
 
     void Update()
     {
-        _Timer = Time.deltaTime;
+
         PlayerScorePrint();
         PlayerTouchScreenScore();
     }
@@ -90,23 +86,40 @@ public class PlayerScorer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            float _timer = setTouchScreenTimer;
-            StartCoroutine(TouchedScreenScore(_timer));
+            if(setTouchScreenTimer >= 0 && timerIntRunning)
+            {
+                _statTimer = 0;
+            }
+            timerIntRunning = true;
+            _statTimer = 0;
+            
+
+            
+            
+        }
+        if(timerIntRunning)
+        {
+            if(_statTimer < setTouchScreenTimer)
+            {
+                _statTimer += Time.deltaTime;
+            }
+            else
+            {
+                PlayerScoreIncrementer(0, addScore_TS);
+                //save to stats
+                _touchScreenPoints += addScore_TS;
+                msgScore_Text.text = "You recieved " + addScore_TS + " points";
+                StartCoroutine(DisplayScoreScreen());
+                _statTimer = 0;
+                timerIntRunning = false;
+            }
         }
     }
-    IEnumerator TouchedScreenScore(float _timer)
-    {   Debug.LogError(_timer);
+    IEnumerator DisplayScoreScreen()
+    {  
         msgScore_Object.SetActive(true);
-        msgScore_Object.SetActive(false);
-        yield return new WaitForSeconds(_timer);
-        msgScore_Object.SetActive(true);
-        Debug.LogError(_timer);
-        PlayerScoreIncrementer(0, addScore_TS);
-        //save to stats
-        _touchScreenPoints += addScore_TS;
-        msgScore_Text.text = "You recieved " + addScore_TS + " points";
-        msgScore_Object.SetActive(false);
-        
+        yield return new WaitForSeconds(1f);
+        msgScore_Object.SetActive(false);       
 
     }
 
@@ -127,9 +140,10 @@ public class PlayerScorer : MonoBehaviour
     {
         if(!gameController.isGameActive)
         {
-            coinsTotal  = getScore / coin_divider;
+            convertedCoins  = getScore / coin_divider;
+            totalCoins = current_Coins + convertedCoins;
             msgScore_Object.SetActive(true);
-            msgScore_Text.text = "Monedas obtenidas: " + current_Coins + "\nPuntos convertidas en monedas " + coinsTotal;
+            msgScore_Text.text = "Monedas obtenidas: " + current_Coins + "\nPuntos convertidas en monedas " + convertedCoins + "\n Total monedas: " + totalCoins;
         }
     }
 
@@ -139,9 +153,9 @@ public class PlayerScorer : MonoBehaviour
 
     public void PlayerScoreDisplay(string score) 
     {
-        msgScore_Object.SetActive(true);
+        
         msgScore_Text.text = "Pasa cerca del muro, te llevas " + score + " puntos";
-        msgScore_Object.SetActive(false);
+        StartCoroutine(DisplayScoreScreen());
     }
 
 }
