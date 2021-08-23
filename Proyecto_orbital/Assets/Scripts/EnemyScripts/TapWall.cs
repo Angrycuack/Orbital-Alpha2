@@ -56,11 +56,13 @@ public class TapWall : MonoBehaviour
             {
                 GetComponent<MeshRenderer>().material = visible;
                 wallCollider.enabled = true;
+                orbitCollider.enabled = true;
             }
             else
             {
                 GetComponent<MeshRenderer>().material = invisible;
                 wallCollider.enabled = false;
+                orbitCollider.enabled = false;
             }    
         }
     }
