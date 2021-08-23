@@ -11,31 +11,41 @@ public class OrbitalMovement : MonoBehaviour
     private static bool timer;
     private float countDown = 10f;
     private Vector3 direction;
-
-    // OverlapSphere Collider
-    static Collider[] hitColliders;
-
     private void Start()
     {
         centralSphere = GameObject.Find("CentralSphere").transform;
         this.gameObject.transform.SetParent(centralSphere);
         rotateUp = true;
         ReturnSpeed();
-        direction = Vector3.up;       
+        direction = Vector3.up;
+
+        
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!rotateUp) { direction = Vector3.up; }
-            if (rotateUp) { direction = Vector3.down; }
+            if (!rotateUp) { 
+                direction = Vector3.up;
+            }
+
+            if (rotateUp) 
+            { 
+                direction = Vector3.down;
+            }
             rotateUp = !rotateUp;
         }
-
         if (timer) { countDown -= Time.deltaTime; }
-        if (countDown <= 0) { ReturnSpeed(); }
+        if (countDown <= 0) {  ReturnSpeed(); }
+        
+
+
+        
     }
+
+    
+
     private void FixedUpdate()
     {
         transform.RotateAround(centralSphere.transform.position, direction, speed * Time.deltaTime);
@@ -67,10 +77,5 @@ public class OrbitalMovement : MonoBehaviour
     {
         GetComponent<SphereCollider>().enabled = state;
     }
-    
-    /// <summary>
-    /// Recoge el valor del tiempo cuando el jugador toco la pantalla
-    /// </summary>
-    /// <param name="gTime"></param>
 
 }

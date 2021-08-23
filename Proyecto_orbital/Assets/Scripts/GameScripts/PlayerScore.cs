@@ -17,16 +17,17 @@ public class PlayerScore : MonoBehaviour
     private int current_score;
     private int playerWallScore;
     
-    PlayerMoves playerDistance;
-
+    Transform playerDistance;
+    private int player_Distance;
+    private int current_distance_score;
 
     private float _Timer;
     private float prev_Timer;
     private float pressed_time;
     [SerializeField]
     public float set_timeNotouch = 5f;
-    [SerializeField] private int add_Score = 5;
-    [SerializeField] private int add_CloseWall_Score = 5;
+    [SerializeField] private int add_Score_NoTouch = 5;
+    [SerializeField] private int add_Score_CloseWall = 15;
 
     // Instanciar GameController
     GameController gameController;
@@ -39,54 +40,42 @@ public class PlayerScore : MonoBehaviour
     private float orbit_current_rotation;
     private float angleSoFar, angleLastPos;
 
+    //Mensajes 
+    [SerializeField] public string[] messages_Wall;
+
     void Start()
     {
         playerTotalScore = 0;
-        playerDistance = GameObject.Find("Player").GetComponent<PlayerMoves>();
+        playerDistance = GameObject.Find("Player").GetComponent<Transform>();
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         orbit = GetComponent<Transform>();
 
+        current_score = 0;
         prev_Timer = 0;
         pressed_time = 0;
-
+        current_distance_score = 0;
         angleSoFar = 0;
         angleLastPos = orbit.localEulerAngles[1];
 
+        //print(messages_Wall[0]);
     }
 
     void Update()
     {
         _Timer = Time.fixedTime;
-        RotationPlayerScore();
-        PlayerDistanceScore();
-        PlayerNoTouchScreen();
-        GetScoreToSum();
-        PlayerScoreCoinConverter();
-        //Debug.Log("current score " + current_score);
-        playerTotalScore = current_score;
-        scoreText.text = playerTotalScore.ToString();
+
+
+        ShowScoreText();
     }
 
-    private void RotationPlayerScore()
+    private void ShowScoreText()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            float orbit_current_rotation = orbit.transform.localEulerAngles[1];
-            angleSoFar += angleLastPos - orbit_current_rotation;
-            if (angleSoFar > 359)
-            {
-                Debug.LogWarning("Wow 360 " + angleSoFar);
-                
-            }
-            else if (angleSoFar < 359)
-            {
-                Debug.LogWarning("Uh oh not 360 " + angleSoFar);
-                
-            }
 
-            Debug.LogWarning(orbit_current_rotation);
-        }
 
+        PlayerNoTouchScreen();
+        print(PlayerDistanceScore());
+        playerTotalScore = PlayerDistanceScore();
+        scoreText.text = playerTotalScore.ToString();
     }
 
     public IEnumerator ShowTextOnTimeWallScore()
@@ -99,28 +88,33 @@ public class PlayerScore : MonoBehaviour
     public IEnumerator ShowTextOnTimeNoTouch()
     {
         showPointsNt.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        showPointsNt.SetActive(false); 
+        yield return new WaitForSeconds(1f);
+        showPointsNt.SetActive(false);
+        
+        yield return new WaitForSeconds(1f);
     }
-    void PlayerDistanceScore()
+    int PlayerDistanceScore()
     {
-        current_score = playerDistance.playerScore;
+        player_Distance = ((int)playerDistance.transform.position.z);
+
+        if(player_Distance > current_distance_score)
+        {
+            current_score = current_distance_score++;
+        }
+        return current_score;
     }
 
     public void PlayerWallScore()
     {
-        playerWallScore = add_CloseWall_Score;
-        showPointsWsText.text = "Has pasado cerca de un muro: " + playerWallScore + " puntos.";
+        playerWallScore = add_Score_CloseWall;
+        showPointsWsText.text = messages_Wall[0];
         StartCoroutine(ShowTextOnTimeWallScore());
     }
-     void GetScoreToSum()
+    void GetScoreToSum()
     {
-        if(playerWallScore > 0)
-        {
             current_score += playerWallScore;
-        }
-            
         
+            
     }
     void PlayerNoTouchScreen()
     {
@@ -129,18 +123,24 @@ public class PlayerScore : MonoBehaviour
             
             pressed_time = _Timer;
             
-            if (prev_Timer != pressed_time && playerDistance.playerScore > 0)
+            if (prev_Timer != pressed_time && playerDistance.transform.position.z > 0)
             {
                 float dif_time = pressed_time - prev_Timer;
-                if (dif_time >= set_timeNotouch)
+                set_timeNotouch -= Time.deltaTime;
+                if (set_timeNotouch <= dif_time)
                 {
-                    current_score += add_Score;
-                    showPointsWsText.text = "Has conseguido: " + add_Score + " puntos. Sin tocar la pantalla.";
+                    current_score += add_Score_NoTouch;
+                    
+                    showPointsWsText.text = "Has conseguido: " + add_Score_NoTouch + " puntos. Sin tocar la pantalla.";
                     StartCoroutine(ShowTextOnTimeNoTouch());
+                    Debug.LogWarning(current_score);
                 }
             }
-            prev_Timer = _Timer;         
+            prev_Timer = _Timer;
+            
         }
+        
+        
     }
 
     public void PlayerScoreCoinConverter()

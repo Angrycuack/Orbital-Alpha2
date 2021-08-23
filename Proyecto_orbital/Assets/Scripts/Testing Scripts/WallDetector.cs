@@ -9,8 +9,7 @@ public class WallDetector : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Wall detected " + collision.gameObject.name);
-            int addTo_playerScore = 10;
-            ScoreController.PointsWhenOrbitClosetoWall(addTo_playerScore);
+           
         }
     }
 }

@@ -23,25 +23,21 @@ public class GameController : MonoBehaviour
     public int totalCoins;
     private float score;
     public int orbitNumber;
-    //private int playerScoreToPrint;
 
-    // cuando esta en estado GameOver bool 
     public bool isGameActive;
-
     private void Awake()
     {
         totalCoins = 0;
-        score = 0f;
+        //score = 0f;
         instance = this;
         isGameActive = true;
-
         scoreController = GameObject.FindObjectOfType<PlayerScore>();
         showScoreWs = GameObject.Find("textScoreWs");
         showScoreNt = GameObject.Find("textScoreNt");
     }
     private void Update()
     {
-        score += Time.deltaTime;
+        //score += Time.deltaTime;
 
         //scoreText.text = "Score: " + score.ToString("F0");
         //playerScoreToPrint = ScoreController.ScoreToPrint();

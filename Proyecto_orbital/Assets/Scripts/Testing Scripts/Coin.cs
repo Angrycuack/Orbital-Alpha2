@@ -37,8 +37,8 @@ public class Coin : MonoBehaviour
     {
         int coinNum = Random.Range(0, 2);
         playerCoins = valueCoins[coinNum];
-        Debug.Log("El jugador ha conseguido " + playerCoins + " monedas");
-        Debug.Log("El numero es " + valueCoins + " monedas");
+        //Debug.Log("El jugador ha conseguido " + playerCoins + " monedas");
+        //Debug.Log("El numero es " + valueCoins + " monedas");
         gc_addCoins.AddCoins(playerCoins);
     }
 }
