@@ -105,7 +105,7 @@ public class FullRotationDetector : MonoBehaviour
         if (other.gameObject.CompareTag("Orbital")) 
         {
             msgText_Object.SetActive(true);
-            msg_Text.text = "Enhorabuena! Conseguiste " + set_score + " puntos";
+            msg_Text.text = set_score.ToString();
 
             playerScorer.PlayerFullRotationScore(set_score);
             //colliderIsTrigger.isTrigger = false;   
@@ -113,9 +113,10 @@ public class FullRotationDetector : MonoBehaviour
     }
     IEnumerator DisplayTimer()
     {
-        msgText_Object.SetActive(true);
-        yield return new WaitForSeconds(1f);
         msgText_Object.SetActive(false);
+        yield return new WaitForSeconds(4.5f);
+        msgText_Object.SetActive(true);
+        
     }
 
     void InterruptorCollider () 

@@ -38,6 +38,12 @@ public class PlayerScorer : MonoBehaviour
     public int current_Coins;
     public int totalCoins;
 
+    [Header ("Near Wall Scorer")]
+    public static int level;
+    private float timer;
+    private float timerCountdown;
+    private bool timeDown;
+
     void Start()
     {
         playerDistance = GameObject.FindGameObjectWithTag("Player");
@@ -46,12 +52,22 @@ public class PlayerScorer : MonoBehaviour
         save_score = 0;
         totalCoins = 0;
         current_score = 0;
+
+        level = 0;
+        timeDown = false;
     }
 
     void Update()
     {
 
      PlayerTouchScreenIncrementer();
+
+     if(timeDown) {timerCountdown -= Time.deltaTime;}
+     if(timerCountdown <= 0)
+     {
+         level = 0;
+         timeDown = false;
+     }
     }
 
     public void PlayerScorePrint(int gscore) 
@@ -69,20 +85,14 @@ public class PlayerScorer : MonoBehaviour
         if(addedScore > 0) {
             save_score += addedScore;
         }
-        //Debug.LogError(save_score);
+
         update_score = increaseScore;
-        //save for stats
+     
         _distancePoints = increaseScore;
         current_score = update_score;
         
         current_score = save_score + update_score;
-
-        
-        //Debug.Log(current_score);
         PlayerScorePrint(current_score);
-        //playerScore_Text.text = score.ToString();
-        // refresh_score
-
     }
 
     void PlayerTouchScreenIncrementer()
@@ -117,18 +127,11 @@ public class PlayerScorer : MonoBehaviour
                 //save to stats
                 PlayerTouchScreenScore(addScore_TS);
                 msgScore_Text.text = "You recieved " + addScore_TS + " points";
-                StartCoroutine(DisplayScoreScreen());
+                StartCoroutine(PlayerScoreDisplay());
                 _statTimer = 0;
                 timerIntRunning = false;
             }
         }
-    }
-    IEnumerator DisplayScoreScreen()
-    {  
-        msgScore_Object.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        msgScore_Object.SetActive(false);       
-
     }
 
     public void PlayerNearWallScore (int getscore) 
@@ -137,6 +140,7 @@ public class PlayerScorer : MonoBehaviour
         _nearWallPoints += getscore;
         PlayerScoreIncrementer(0, score_to_add);
     }
+    
     public void PlayerFullRotationScore(int getscore)
     {
         _fullRotationPoints += getscore;
@@ -148,6 +152,61 @@ public class PlayerScorer : MonoBehaviour
         int score_to_add = getscore;
         _touchScreenPoints += score_to_add;
         PlayerScoreIncrementer(0, score_to_add);
+    }
+
+    public void OrbitNearWall() 
+    {
+        level ++;
+        OrbitCombo();
+    }
+
+    private void OrbitCombo()
+    {
+        switch (level)
+        {
+            case 1:
+                msgScore_Text.text = "Combo activado, sumaras 50 puntos";
+                StartCoroutine(PlayerScoreDisplay());
+                PlayerNearWallScore(20);
+                timer = 6f;
+                break;
+            case 2:
+                msgScore_Text.text = "sumaras 110 puntos";
+                StartCoroutine(PlayerScoreDisplay());
+                PlayerNearWallScore(50);
+                timer = 5f;
+                break;
+            case 3:
+                msgScore_Text.text = "sumaras 180 puntos";
+                StartCoroutine(PlayerScoreDisplay());
+                PlayerNearWallScore(110);
+                timer = 4f;
+                break;
+            case 4:
+                msgScore_Text.text = "sumaras 234 puntos";
+                StartCoroutine(PlayerScoreDisplay());
+                PlayerNearWallScore(180);
+                timer = 3f;
+                break;
+            case 5:
+                msgScore_Text.text = "sumaras 327 puntos";
+                StartCoroutine(PlayerScoreDisplay());
+                PlayerNearWallScore(234);
+                timer = 2f;
+                break;
+            case 6:
+                msgScore_Text.text = "sumaras 500 puntos";
+                StartCoroutine(PlayerScoreDisplay());
+                PlayerNearWallScore(327);
+                timer = 1f;
+                break;
+            case 7:
+                msgScore_Text.text = "Fin del Combo";
+                StartCoroutine(PlayerScoreDisplay());
+                break;
+        }
+        timerCountdown = timer;
+        timeDown = true;
     }
 
 
@@ -166,10 +225,11 @@ public class PlayerScorer : MonoBehaviour
         current_Coins += getcoins;
     }
 
-    public void PlayerScoreDisplay(string score) 
+    IEnumerator PlayerScoreDisplay() 
     {
-        msgScore_Text.text = "Pasa cerca del muro, te llevas " + score + " puntos";
-        StartCoroutine(DisplayScoreScreen());
+        msgScore_Object.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        msgScore_Object.SetActive(false);
     }
 
 }
