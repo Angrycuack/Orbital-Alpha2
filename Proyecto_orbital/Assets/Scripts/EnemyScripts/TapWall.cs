@@ -20,7 +20,7 @@ public class TapWall : MonoBehaviour
         
         wallCollider = GetComponent<BoxCollider>();
         worldsettings = FindObjectOfType<World_settings>();
-        orbitCollider = GetComponent<BoxCollider>();
+        orbitCollider = GameObject.Find("OrbitDetector").GetComponent<BoxCollider>();
         active = worldsettings.generalactive;
         if (defaultactive == true)
         {
