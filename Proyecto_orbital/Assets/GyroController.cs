@@ -47,6 +47,38 @@ public class GyroController : MonoBehaviour
         gyroX = Input.gyro.attitude.x;
         gyroY = Input.gyro.attitude.y;
 
+        // Funcion para el movimiento.
+        GyroMovements();
+        
+
+        cameraRotation.transform.rotation = Quaternion.Euler(numX, numY, 0f);
+
+        //if (SystemInfo.supportsGyroscope) { transform.rotation = GyroToUnity(Input.gyro.attitude); }
+
+    }
+
+    void GyroMovements() 
+    {
+                if (gyroX >= 0.1 || gyroX <= -0.1)
+        {
+            numX += Time.deltaTime * gyroX * speedRotation;
+        }
+        else
+        {
+            numX = 0;
+        }
+        if (gyroY >= 0.2 || gyroY <= -0.3)
+        {
+            numY += Time.deltaTime * gyroY * speedRotation;
+        }
+        else
+        {
+            numY = 0;
+        }
+    }
+
+    void GyroMoveAlternative() 
+    {
         if(gyroX >= 0.15)
         {
             Debug.LogWarning("Right");
@@ -78,11 +110,6 @@ public class GyroController : MonoBehaviour
         {
             numY = 0;
         }
-
-        cameraRotation.transform.rotation = Quaternion.Euler(numX, numY, 0f);
-
-        //if (SystemInfo.supportsGyroscope) { transform.rotation = GyroToUnity(Input.gyro.attitude); }
-
     }
     private Quaternion GyroToUnity (Quaternion q)
     {
