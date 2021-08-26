@@ -22,6 +22,10 @@ public class GyroController : MonoBehaviour
     public GameObject cameraRotation;
     public GameObject gyroRotation;
     
+    public float xMin = -10f;
+    public float xMax = 20f;
+    public float yMin = -20f;
+    public float yMax = 20f;
 
     void Start()
     {
@@ -50,6 +54,8 @@ public class GyroController : MonoBehaviour
         // Funcion para el movimiento.
         GyroMovements();
         
+        
+        
 
         cameraRotation.transform.rotation = Quaternion.Euler(numX, numY, 0f);
 
@@ -59,58 +65,27 @@ public class GyroController : MonoBehaviour
 
     void GyroMovements() 
     {
-                if (gyroX >= 0.1 || gyroX <= -0.1)
+        if (gyroX >= 0.1 || gyroX <= -0.1)
         {
             numX += Time.deltaTime * gyroX * speedRotation;
+            numX = Mathf.Clamp(numX, xMin, xMax);
         }
         else
         {
             numX = 0;
         }
-        if (gyroY >= 0.2 || gyroY <= -0.3)
+        if (gyroY >= 0.1 || gyroY <= -0.1)
         {
             numY += Time.deltaTime * gyroY * speedRotation;
+            numY = Mathf.Clamp(numY, yMin, yMax);
         }
         else
         {
             numY = 0;
         }
     }
-
-    void GyroMoveAlternative() 
-    {
-        if(gyroX >= 0.15)
-        {
-            Debug.LogWarning("Right");
-            numX += Time.deltaTime * speedRotation;
-
-
-        }
-        else if (gyroX <= -0.15)
-        {
-            Debug.LogWarning("Left");
-            numX -= Time.deltaTime * speedRotation;
-        }
-        else
-        {
-            numX = 0;
-        }
-
-        if(gyroY >= 0.2) 
-        {
-            Debug.Log("Down");
-            numY += Time.deltaTime * speedRotation;
-        }
-        else if (gyroY <= -0.4)
-        {
-            Debug.Log("Up");
-            numY -= Time.deltaTime * speedRotation;
-        }
-        else
-        {
-            numY = 0;
-        }
-    }
+// Puede quitarlo
+    
     private Quaternion GyroToUnity (Quaternion q)
     {
         return new Quaternion(q.x, q.y, -q.z, -q.w);

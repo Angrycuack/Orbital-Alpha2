@@ -12,6 +12,7 @@ TagManager:
   - Coin
   - Wall
   - Trigger
+  - OrbitDetector
   layers:
   - Default
   - TransparentFX
