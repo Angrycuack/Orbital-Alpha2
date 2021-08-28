@@ -8,7 +8,10 @@ public class Player
     public string playerName;
     public int hiScore;
     public int premium;
-    private int playerCash;
-    private string cardName;
-    private string cardType;
+    public bool powerUp;
+    public string activePowerUp;
+    public int speedUp;
+    public int moneyUp;
+    public int multiply;
+    public List<int> skins;
 }

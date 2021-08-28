@@ -88,7 +88,7 @@ public class OrbitalMovement : MonoBehaviour
     /// </summary>
     private void ReturnSpeed()
     {
-        speed = basicSpeed;
+        speed = basicSpeed+(GameManager.instance.Player.speedUp*5);
         countDown = 10f;
         timer = false;
     }

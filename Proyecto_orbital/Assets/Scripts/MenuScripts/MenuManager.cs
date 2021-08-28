@@ -12,18 +12,6 @@ public class MenuManager : MonoBehaviour
     [Header("Paneles")]
     [SerializeField] private GameObject[] panels;
 
-    private void Start()
-    {
-        RefreshUI();
-    }
-    /// <summary>
-    /// Método que se encarga de refrescar la interfaz.
-    /// </summary>
-    private void RefreshUI()
-    {
-        premiumText.text = GameManager.instance.Player.premium.ToString();
-        hiScoreText.text = "Hi-Score: " + GameManager.instance.Player.hiScore;
-    }
     /// <summary>
     /// Método que cierra la pestaña donde se pulsa el botón "close".
     /// </summary>

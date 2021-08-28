@@ -55,6 +55,9 @@ public class CentralSphereMovement : MonoBehaviour
             case "NearPU":
                 StartCoroutine(NearForm());
                 break;
+            case "StopPU":
+                StartCoroutine(StopForm());
+                break;
         }
         
     }
@@ -115,6 +118,15 @@ public class CentralSphereMovement : MonoBehaviour
         {
             actualOrbitInScene[i].transform.position = Vector3.MoveTowards(actualOrbitInScene[i].transform.position, centralSphere.transform.position, -2f);
         }
+    }
+
+    IEnumerator StopForm()
+    {
+        float speed = GetComponent<PlayerMoves>().speed;
+        Debug.Log(speed);
+        GetComponent<PlayerMoves>().speed = 0;
+        yield return new WaitForSeconds(10f);
+        GetComponent<PlayerMoves>().speed = speed;
     }
 
     public void FadeOutEffect(bool state)

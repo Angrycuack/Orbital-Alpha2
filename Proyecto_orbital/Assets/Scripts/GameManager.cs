@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
             Application.targetFrameRate = 30;
         }
     }
+
     public void Save()
     {
         string saveGame = JsonUtility.ToJson(Player);
@@ -31,4 +32,5 @@ public class GameManager : MonoBehaviour
         string saveOptions = JsonUtility.ToJson(Options);
         PlayerPrefs.SetString("Options", saveOptions);
     }
+
 }
