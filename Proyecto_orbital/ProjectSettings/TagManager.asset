@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Trigger
   - OrbitDetector
+  - Waypoint
   layers:
   - Default
   - TransparentFX

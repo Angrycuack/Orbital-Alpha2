@@ -7,20 +7,14 @@ public class GyroController : MonoBehaviour
 {
     Gyroscope gC;
 
-    public float gCrotationX;
-    public float gCrotationY;
-    public float gCrotationZ;
-
     public float cameraX;
     public float cameraY;
     public float gyroX;
     public float gyroY;
-    public float numX;
-    public float numY;
+
     public float speedRotation;
     [SerializeField]
-    public GameObject cameraRotation;
-    public GameObject gyroRotation;
+    public GameObject target;
     
     public float xMin = -10f;
     public float xMax = 20f;
@@ -34,18 +28,13 @@ public class GyroController : MonoBehaviour
             gC = Input.gyro;
             gC.enabled = true;
         }
-        cameraRotation = GameObject.Find("Camera");
-        Debug.Log(cameraRotation.transform.rotation);
-        gyroRotation = GameObject.Find("GyroController");
-
-        
     }
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
 
-    void FixedUpdate()
+    void Update()
     
     {
         gyroX = Input.gyro.attitude.x;
@@ -53,11 +42,7 @@ public class GyroController : MonoBehaviour
 
         // Funcion para el movimiento.
         GyroMovements();
-        
-        
-        
-
-        cameraRotation.transform.rotation = Quaternion.Euler(numX, numY, 0f);
+        target.transform.rotation = Quaternion.Euler(cameraX, cameraY, 0f);
 
         //if (SystemInfo.supportsGyroscope) { transform.rotation = GyroToUnity(Input.gyro.attitude); }
 
@@ -67,25 +52,24 @@ public class GyroController : MonoBehaviour
     {
         if (gyroX >= 0.1 || gyroX <= -0.1)
         {
-            numX += Time.deltaTime * gyroX * speedRotation;
-            numX = Mathf.Clamp(numX, xMin, xMax);
+            cameraX += Time.deltaTime * gyroX * speedRotation;
+            cameraX = Mathf.Clamp(cameraX, xMin, xMax);
         }
         else
         {
-            numX = 0;
+            cameraY = Mathf.Lerp(target.transform.position.x, cameraX, .5f);
         }
         if (gyroY >= 0.1 || gyroY <= -0.1)
         {
-            numY += Time.deltaTime * gyroY * speedRotation;
-            numY = Mathf.Clamp(numY, yMin, yMax);
+            cameraY += Time.deltaTime * gyroY * speedRotation;
+            cameraY = Mathf.Clamp(cameraY, yMin, yMax);
         }
         else
         {
-            numY = 0;
+            cameraY = Mathf.Lerp(target.transform.position.y, cameraY, .5f);
         }
     }
-// Puede quitarlo
-    
+    // Calibration 
     private Quaternion GyroToUnity (Quaternion q)
     {
         return new Quaternion(q.x, q.y, -q.z, -q.w);

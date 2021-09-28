@@ -50,7 +50,6 @@ public class PlayerScorer : MonoBehaviour
         gameController = FindObjectOfType<GameController>();
         playerScore = 0;
         save_score = 0;
-        totalCoins = 0;
         current_score = 0;
 
         level = 0;

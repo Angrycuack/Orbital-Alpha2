@@ -72,9 +72,4 @@ public class OrbitalMovement : MonoBehaviour
     {
         GetComponent<SphereCollider>().enabled = state;
     }
-    
-
-    
-
-
 }
